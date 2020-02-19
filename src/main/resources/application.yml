@@ -1,0 +1,24 @@
+application:
+  version: 0.0.1
+  resource:
+    locations: file:G:/javaImg/
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    multipart:
+      max-file-size: 30MB
+      max-request-size: 5MB
+
+spring:
+  mobile:
+    devicedelegatingviewresolver:
+      enabled: true
+
+  # DataSource Config
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    username: root
+    password: 123456
