@@ -12,22 +12,20 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}"/>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">管理系统</div>
-        <!-- 头部区域（可配合layui已有的水平导航） -->
-        <ul class="layui-nav layui-layout-left">
-            <li class="layui-nav-item layui-this"><a href="javascript:;">控制台</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">业务系统<span class="layui-badge-dot"></span></a></li>
-            <li class="layui-nav-item"><a href="javascript:;">组织管理</a></li>
-            <li class="layui-nav-item"><a href="javascript:;">邮件系统<span class="layui-badge">9+</span></a></li>
-            <li class="layui-nav-item"><a href="javascript:;">文件系统</a></li>
+        <ul class="layui-nav layui-layout-left" lay-filter="navTab">
+            <li class="layui-nav-item"><a href="javascript:;" taggle="consoleMenu">控制台</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" taggle="businessMenu">业务系统</a></li>
+            <li class="layui-nav-item"><a href="javascript:;" taggle="enterpriseMenu">企业管理</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">贤心</a>
+                <a href="javascript:;">{{ #user.userName }}</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">基本资料</a></dd>
                     <dd><a href="javascript:;">安全设置</a></dd>
@@ -38,7 +36,18 @@
     </div>
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
-            <ul class="layui-nav layui-nav-tree ">
+            <ul class="layui-nav layui-nav-tree menuUlTab" id="consoleMenu">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">数据库</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">服务器管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">服务器列表</a></dd>
+                        <dd><a href="javascript:;">添加服务器</a></dd>
+                        <dd><a href="javascript:;">服务器配置</a></dd>
+                    </dl>
+                </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">账号管理</a>
                     <dl class="layui-nav-child">
@@ -61,20 +70,129 @@
                     <a href="javascript:;">授权管理</a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">授权查询</a></dd>
-                        <dd><a href="javascript:;">添加菜单</a></dd>
+                        <dd><a href="javascript:;">添加授权</a></dd>
                         <dd><a href="javascript:;">修改菜单</a></dd>
                     </dl>
                 </li>
-
+            </ul>
+            <ul class="layui-nav layui-nav-tree menuUlTab" id="businessMenu">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">服务管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">订单投诉</a></dd>
+                        <dd><a href="javascript:;">服务投诉</a></dd>
+                        <dd><a href="javascript:;">建议/意见</a></dd>
+                        <dd><a href="javascript:;">退款订单</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">订单管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">订单查询</a></dd>
+                        <dd><a href="javascript:;">订单列表</a></dd>
+                        <dd><a href="javascript:;">添加订单</a></dd>
+                        <dd><a href="javascript:;">修改订单信息</a></dd>
+                        <dd><a href="javascript:;">订单评价</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">产品管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">产品查询</a></dd>
+                        <dd><a href="javascript:;">产品列表</a></dd>
+                        <dd><a href="javascript:;">添加产品</a></dd>
+                        <dd><a href="javascript:;">修改产品信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">用户查询</a></dd>
+                        <dd><a href="javascript:;">用户列表</a></dd>
+                        <dd><a href="javascript:;">添加用户</a></dd>
+                        <dd><a href="javascript:;">用户信息修改</a></dd>
+                        <dd><a href="javascript:;">消费记录</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">用户等级管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">用户等级列表</a></dd>
+                        <dd><a href="javascript:;">添加用户等级</a></dd>
+                        <dd><a href="javascript:;">用户等级修改</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-nav-tree menuUlTab" id="enterpriseMenu">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">企业管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">企业查询</a></dd>
+                        <dd><a href="javascript:;">企业列表</a></dd>
+                        <dd><a href="javascript:;">添加企业</a></dd>
+                        <dd><a href="javascript:;">修改企业信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">门店管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">门店查询</a></dd>
+                        <dd><a href="javascript:;">门店列表</a></dd>
+                        <dd><a href="javascript:;">添加门店</a></dd>
+                        <dd><a href="javascript:;">修改门店信息</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">员工管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">员工查询</a></dd>
+                        <dd><a href="javascript:;">员工列表</a></dd>
+                        <dd><a href="javascript:;">添加员工</a></dd>
+                        <dd><a href="javascript:;">修改员工</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">员工考核</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">出勤情况</a></dd>
+                        <dd><a href="javascript:;">请假审批</a></dd>
+                        <dd><a href="javascript:;">员工业绩</a></dd>
+                    </dl>
+                </li>
             </ul>
         </div>
     </div>
     <div class="layui-body">
-
+        <div class="layui-tab tab" lay-allowclose="false">
+            <ul class="layui-tab-title tabFrame">
+                <li class="layui-this home"><i class="layui-icon">&#xe68e;</i>&nbsp;我的桌面</li>
+<!--                <li>我的桌面2</li>-->
+            </ul>
+            <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                <dl>
+                    <dd data-type="this">关闭当前</dd>
+                    <dd data-type="other">关闭其它</dd>
+                    <dd data-type="all">关闭全部</dd>
+                </dl>
+            </div>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <h2>Hello World!</h2>
+                </div>
+<!--                <div class="layui-tab-item">-->
+<!--                    <iframe src='https://www.baidu.com' class="x-iframe" scrolling="auto"></iframe>-->
+<!--                </div>-->
+            </div>
+            <div id="tab_show"></div>
+        </div>
     </div>
-    <div class="layui-footer">感谢&nbsp;<a href="https://www.layui.com/">&copy;Layui</a>,&nbsp;<a href="https://www.echartsjs.com/zh/index.html">&copy;Echarts</a>,&nbsp;<a href="https://jquery.com/">&copy;jQuery</a>,&nbsp;本系统由<a href="https://github.com/ChenHao96/Hellfire">&copy;Hellfire</a>提供技术支持。</div>
+    <div class="layui-footer">感谢&nbsp;<a href="https://www.layui.com/" target="_blank">&copy;Layui</a>,&nbsp;<a
+            href="https://www.echartsjs.com/zh/index.html" target="_blank">&copy;Echarts</a>,&nbsp;<a
+            href="https://jquery.com/" target="_blank">&copy;jQuery</a>,&nbsp;本系统由<a
+            href="https://github.com/ChenHao96/Hellfire" target="_blank">&copy;Hellfire</a>提供技术支持。
+    </div>
 </div>
 <script th:src="@{/layui/layui.js}" charset="UTF-8" src="../static/layui/layui.js"></script>
-<script>layui.use('element', function(){var element = layui.element;});</script>
+<script  th:src="@{/js/index.js}" src="../static/js/index.js"></script>
 </body>
 </html>
