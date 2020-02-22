@@ -10,7 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CommonsController {
+public class CommonsController extends AbstractController {
+
+    @RequestMapping("/")
+    public ModelAndView indexPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("index");
+        return modelAndView;
+    }
 
     @RequestMapping("/login")
     public ModelAndView loginPage(HttpServletRequest request) {
