@@ -20,11 +20,6 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
         return new RequestInterceptor();
     }
 
-//    @Bean
-//    public HandlerInterceptor loginUserInterceptor() {
-//        return new LoginUserInterceptor();
-//    }
-
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -34,8 +29,6 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/api/**");
-//        registry.addInterceptor(loginUserInterceptor()).addPathPatterns("/**")
-//                .excludePathPatterns(SpringWebSecurityConfig.IGNORE_PATTERNS);
     }
 
     @Override

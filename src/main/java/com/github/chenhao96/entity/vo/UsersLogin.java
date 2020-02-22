@@ -21,20 +21,17 @@ public class UsersLogin extends ATUsers implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        //返回的没有过期
         return !UserStatusEnum.DISABLE.equals(getStatus());
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        //返回的没有锁定
         return !UserStatusEnum.LOCKED.equals(getStatus());
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
         long currentTime = System.currentTimeMillis();
-        //返回的是密码时效没有过期
         return getExpiredTime() == null || getExpiredTime().getTime() > currentTime;
     }
 
