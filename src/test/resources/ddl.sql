@@ -1,15 +1,16 @@
 CREATE TABLE `a_t_users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_name` varchar(36) NOT NULL COMMENT '用户名',
+  `username` varchar(36) NOT NULL COMMENT '用户名',
   `nick_name` varchar(255) NOT NULL COMMENT '昵称',
   `e_mail` varchar(255) DEFAULT NULL COMMENT '电子邮箱',
   `phone_number` varchar(11) NOT NULL COMMENT '手机号',
-  `login_password` varchar(36) NOT NULL COMMENT '登录密码',
+  `password` varchar(36) NOT NULL COMMENT '登录密码',
   `option_password` varchar(36) NOT NULL COMMENT '操作密码',
   `status` tinyint(4) NOT NULL COMMENT '账号状态',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `expired_time` datetime COMMENT '截止登录时间',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `user_name` (`user_name`) USING HASH,
+  UNIQUE KEY `username` (`username`) USING HASH,
   KEY `phone_number` (`phone_number`) USING HASH,
   KEY `status` (`status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统账号信息';

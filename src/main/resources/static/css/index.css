@@ -20,33 +20,3 @@
     border:0;
     height:500px;
 }
-
-.login .formMessageBox{
-    color:white;
-    line-height: 32px;
-    padding-left: 5px;
-    animation: errorMessage 3s;
-    -moz-animation: errorMessage 3s;
-    -webkit-animation: errorMessage 3s;
-    -o-animation: errorMessage 3s;
-}
-@keyframes errorMessage{
-   from {background-color:#de381f;}
-   90% {background-color:#de381f;}
-   to {display:none;}
-}
-@-moz-keyframes errorMessage{
-   from {background-color:#de381f;}
-   90% {background-color:#de381f;}
-   to {display:none;}
-}
-@-webkit-keyframes errorMessage{
-   from {background-color:#de381f;}
-   90% {background-color:#de381f;}
-   to {display:none;}
-}
-@-o-keyframes errorMessage{
-   from {background-color:#de381f;}
-   90% {background-color:#de381f;}
-   to {display:none;}
-}

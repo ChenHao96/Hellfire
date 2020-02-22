@@ -24,8 +24,8 @@
         <div th:text="${message}">用户名或密码错误!</div>
         <hr class="hr15">
     </div>
-    <form method="post" class="layui-form" th:action="@{/loginForm}">
-        <input name="userName" placeholder="用户名" lay-verify="required" class="layui-input"/>
+    <form method="post" class="layui-form" th:action="@{/login}">
+        <input name="username" placeholder="用户名" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
         <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input"/>
         <hr class="hr15">

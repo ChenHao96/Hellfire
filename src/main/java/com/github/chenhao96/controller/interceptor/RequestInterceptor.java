@@ -29,7 +29,7 @@ import java.util.Set;
 
 public class RequestInterceptor implements HandlerInterceptor {
 
-    public static final String SERVLET_PATH_PARAMETER_NAME = "servlet_path_key";
+    public static final String SERVLET_PATH_PARAMETER_NAME = "RequestInterceptor_servlet_path_key";
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestInterceptor.class);
 
     @Override

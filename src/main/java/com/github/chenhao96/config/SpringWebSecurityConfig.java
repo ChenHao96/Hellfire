@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${spring.profiles.active}")
@@ -44,15 +46,14 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
         //只能允许一个账号登录，如有其他设备登录，当前强制下线
-        http.sessionManagement().maximumSessions(1);
+        //http.sessionManagement().maximumSessions(1).maxSessionsPreventsLogin(true);
+        //TODO:踢出登录未提示
 
         http.authorizeRequests().antMatchers(RESOURCES_PATTERNS).permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated().and()
+                .exceptionHandling().accessDeniedPage("/403");
 
         http.formLogin().loginPage("/login")
-                .loginProcessingUrl("/loginForm")
-                .usernameParameter("userName")
-                .passwordParameter("password")
                 .failureHandler(securityAuthenticationHandler)
                 .and().logout()
                 .logoutUrl("/logout")
