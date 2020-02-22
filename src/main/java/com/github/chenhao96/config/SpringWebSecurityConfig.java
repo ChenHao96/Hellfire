@@ -36,7 +36,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    private static final String[] RESOURCES_PATTERNS = new String[]{"/login", "/css/**", "/js/**", "/image/**", "/framework/**", "/favicon.ico"};
+    public static final String[] IGNORE_PATTERNS = new String[]{"/login", "/logout", "/favicon.ico", "/css/**", "/js/**", "/image/**", "/framework/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,15 +45,14 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
             http.csrf().disable();
         }
 
-        http.authorizeRequests().antMatchers(RESOURCES_PATTERNS).permitAll()
+        http.authorizeRequests().antMatchers(IGNORE_PATTERNS).permitAll()
                 .anyRequest().authenticated().and()
                 .exceptionHandling().accessDeniedPage("/403");
 
         http.formLogin().loginPage("/login")
                 .failureHandler(securityAuthenticationHandler)
-//                .successHandler(securityAuthenticationHandler)
                 .and().logout().invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID", "SESSIONID", "SESSION")
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login");
     }

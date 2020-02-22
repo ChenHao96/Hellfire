@@ -6,6 +6,8 @@ import java.security.AccessController;
 
 public class CommonsUtil {
 
+    public static final int PROCESS_NUMBER = Runtime.getRuntime().availableProcessors();
+
     public static final String DEFAULT_ENCODING = AccessController.doPrivileged(
             new GetPropertyAction("file.encoding")
     );

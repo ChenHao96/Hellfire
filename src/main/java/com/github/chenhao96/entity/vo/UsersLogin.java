@@ -1,17 +1,22 @@
-package com.github.chenhao96.entity;
+package com.github.chenhao96.entity.vo;
 
-import com.github.chenhao96.entity.po.ATUser;
+import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.po.UserStatusEnum;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
-public class UserLogin extends ATUser implements UserDetails {
+public class UsersLogin extends ATUsers implements UserDetails {
+
+    private List<MenusTree> menuTrees;
+
+    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override
@@ -36,5 +41,17 @@ public class UserLogin extends ATUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserStatusEnum.ENABLE.equals(getStatus());
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public List<MenusTree> getMenuTrees() {
+        return menuTrees;
+    }
+
+    public void setMenuTrees(List<MenusTree> menuTrees) {
+        this.menuTrees = menuTrees;
     }
 }

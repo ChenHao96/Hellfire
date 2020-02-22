@@ -21,6 +21,7 @@ CREATE TABLE `a_t_menus` (
   `menu_icon` varchar(255) DEFAULT NULL COMMENT '菜单图标',
   `menu_name` varchar(255) NOT NULL COMMENT '菜单名称',
   `menu_index` varchar(255) NOT NULL COMMENT '菜单索引',
+  `menu_no` int NOT NULL DEFAULT 0 COMMENT '菜单顺序',
   `status` bit(1) NOT NULL COMMENT '状态',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),

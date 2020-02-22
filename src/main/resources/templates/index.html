@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>管理系统</title>
     <meta name="renderer" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" href="../static/framework/layui/css/layui.css" th:href="@{/framework/layui/css/layui.css}" media="all"/>
-    <script th:src="@{/framework/jquery/jquery-3.4.1.min.js}" src="../static/framework/jquery/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../static/framework/layui/css/layui.css" th:href="@{/framework/layui/css/layui.css}"
+          media="all"/>
+    <script th:src="@{/framework/jquery/jquery-3.4.1.min.js}"
+            src="../static/framework/jquery/jquery-3.4.1.min.js"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -25,7 +28,7 @@
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;">----</a>
+                <a href="javascript:;"><th:block sec:authentication="principal.nickName">--未知--</th:block></a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">基本资料</a></dd>
                     <dd><a href="javascript:;">安全设置</a></dd>
@@ -168,7 +171,7 @@
         <div class="layui-tab tab" lay-allowclose="false">
             <ul class="layui-tab-title tabFrame">
                 <li class="layui-this home"><i class="layui-icon">&#xe68e;</i>&nbsp;我的桌面</li>
-<!--                <li>我的桌面2</li>-->
+                <!--                <li>我的桌面2</li>-->
             </ul>
             <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
                 <dl>
@@ -181,9 +184,9 @@
                 <div class="layui-tab-item layui-show">
                     <h2>Hello World!</h2>
                 </div>
-<!--                <div class="layui-tab-item">-->
-<!--                    <iframe src='https://www.baidu.com' class="x-iframe" scrolling="auto"></iframe>-->
-<!--                </div>-->
+                <!--                <div class="layui-tab-item">-->
+                <!--                    <iframe src='https://www.baidu.com' class="x-iframe" scrolling="auto"></iframe>-->
+                <!--                </div>-->
             </div>
             <div id="tab_show"></div>
         </div>
@@ -195,6 +198,6 @@
     </div>
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
-<script  th:src="@{/js/index.js}" src="../static/js/index.js"></script>
+<script th:src="@{/js/index.js}" src="../static/js/index.js"></script>
 </body>
 </html>

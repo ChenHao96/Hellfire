@@ -16,7 +16,6 @@ spring:
     active: dev
 
   thymeleaf:
-    mode: HTML5
     encoding: UTF-8
 
 #  mobile:

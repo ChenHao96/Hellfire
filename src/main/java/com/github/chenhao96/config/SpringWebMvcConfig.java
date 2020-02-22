@@ -16,18 +16,26 @@ import java.util.List;
 public class SpringWebMvcConfig implements WebMvcConfigurer {
 
     @Bean
-    public HandlerInterceptor getRequestHandlerInterceptor() {
+    public HandlerInterceptor requestHandlerInterceptor() {
         return new RequestInterceptor();
     }
 
+//    @Bean
+//    public HandlerInterceptor loginUserInterceptor() {
+//        return new LoginUserInterceptor();
+//    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/").setViewName("index");
         registry.addViewController("/403").setViewName("403");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(getRequestHandlerInterceptor()).addPathPatterns("/api/**");
+        registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/api/**");
+//        registry.addInterceptor(loginUserInterceptor()).addPathPatterns("/**")
+//                .excludePathPatterns(SpringWebSecurityConfig.IGNORE_PATTERNS);
     }
 
     @Override
