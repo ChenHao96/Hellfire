@@ -1,6 +1,8 @@
 package com.github.chenhao96.entity.po;
 
-public class ATMenus {
+import java.io.Serializable;
+
+public class ATMenus implements Serializable {
 
     private Integer id;
 
