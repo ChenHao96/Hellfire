@@ -46,7 +46,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
         }
 
         http.authorizeRequests().antMatchers(IGNORE_PATTERNS).permitAll()
-                .anyRequest().authenticated().and()
+                .anyRequest().fullyAuthenticated().and()
                 .exceptionHandling().accessDeniedPage("/403");
 
         http.formLogin().loginPage("/login")

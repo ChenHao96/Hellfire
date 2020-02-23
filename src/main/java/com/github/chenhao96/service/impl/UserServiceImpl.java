@@ -24,7 +24,8 @@ public class UserServiceImpl implements UserService {
         result.setNickName("傻蛋");
         result.setUsername(username);
         result.setStatus(UserStatusEnum.ENABLE);
-        result.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+        String password = DigestUtils.md5DigestAsHex("123456".getBytes());
+        result.setPassword(passwordEncoder.encode(password));
         return result;
     }
 }

@@ -19,13 +19,6 @@ spring:
   profiles:
     active: dev
 
-  thymeleaf:
-    encoding: UTF-8
-
-#  mobile:
-#    devicedelegatingviewresolver:
-#      enabled: true
-
   # redis Database Config
   redis:
     host: 127.0.0.1

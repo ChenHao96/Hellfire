@@ -5,21 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class CommonsController {
 
     @RequestMapping("/login")
-    public ModelAndView loginPage(HttpServletRequest request) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("login");
-        Boolean isError = (Boolean) request.getAttribute("isError");
-        modelAndView.addObject("isError", isError == null ? false : isError);
-        modelAndView.addObject("message", request.getAttribute("message"));
-        return modelAndView;
+    public String loginPage() {
+        return "login";
     }
 
     @ResponseBody

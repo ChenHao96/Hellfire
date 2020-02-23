@@ -35,7 +35,6 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
         }
         LOGGER.warn("session:{}, AuthenticationException:{}", httpServletRequest.getSession().getId(), e.getClass());
 
-        httpServletRequest.setAttribute("isError", true);
         httpServletRequest.setAttribute("message", message);
         httpServletRequest.getRequestDispatcher("/login").forward(httpServletRequest, httpServletResponse);
     }
