@@ -8,5 +8,9 @@ import java.util.concurrent.Future;
 
 public interface MenuAuthService {
 
-    Future<List<MenusTree>> queryMenuTreeByUser(UsersLogin login);
+    List<MenusTree> findMenuTreeByUserId(Integer userId);
+
+    Future<List<MenusTree>> queryMenuTreeByUserId(Integer userId);
+
+    Future<Boolean> putMenuTreeByUser(UsersLogin user);
 }

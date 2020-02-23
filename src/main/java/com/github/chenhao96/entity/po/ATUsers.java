@@ -11,7 +11,7 @@ public class ATUsers implements Serializable {
 
     private String nickName;
 
-    private String eMail;
+    private String email;
 
     private String phoneNumber;
 
@@ -73,12 +73,12 @@ public class ATUsers implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getEMail() {
-        return eMail;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEMail(String eMail) {
-        this.eMail = eMail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhoneNumber() {
@@ -111,7 +111,7 @@ public class ATUsers implements Serializable {
         sb.append("id=").append(id);
         sb.append(", username='").append(username).append('\'');
         sb.append(", nickName='").append(nickName).append('\'');
-        sb.append(", eMail='").append(eMail).append('\'');
+        sb.append(", email='").append(email).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         sb.append(", password='").append(password).append('\'');
         sb.append(", optionPassword='").append(optionPassword).append('\'');

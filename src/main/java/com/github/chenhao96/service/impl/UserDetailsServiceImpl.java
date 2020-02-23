@@ -1,6 +1,7 @@
 package com.github.chenhao96.service.impl;
 
 import com.github.chenhao96.entity.po.ATUsers;
+import com.github.chenhao96.entity.po.UserStatusEnum;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.ControlAuthService;
 import com.github.chenhao96.service.MenuAuthService;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -37,9 +41,18 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         UsersLogin result = new UsersLogin();
+        Future<Boolean> treeFuture = menuAuthService.putMenuTreeByUser(result);
+        Future<Boolean> listFuture = controlAuthService.putControlListByUser(result);
         BeanUtils.copyProperties(atUsers, result);
-        menuAuthService.queryMenuTreeByUser(result);
-        controlAuthService.queryControlListByUser(result);
+
+        try {
+            //等待其他线程完成
+            listFuture.get();
+            treeFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            LOGGER.warn("exec future fail.", e);
+            result.setStatus(UserStatusEnum.DISABLE);
+        }
         return result;
     }
 }

@@ -1,8 +1,8 @@
 package com.github.chenhao96.entity.vo;
 
+import com.github.chenhao96.entity.po.ATControls;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.po.UserStatusEnum;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -12,10 +12,10 @@ public class UsersLogin extends ATUsers implements UserDetails {
 
     private List<MenusTree> menuTrees;
 
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<ATControls> authorities;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
+    public Collection<ATControls> getAuthorities() {
         return this.authorities;
     }
 
@@ -40,7 +40,7 @@ public class UsersLogin extends ATUsers implements UserDetails {
         return UserStatusEnum.ENABLE.equals(getStatus());
     }
 
-    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+    public void setAuthorities(Collection<ATControls> authorities) {
         this.authorities = authorities;
     }
 

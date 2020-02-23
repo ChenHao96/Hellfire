@@ -7,7 +7,7 @@
     \|__|\|__|\|_______|\|_______|\|_______|\|__|    \|__|\|__|\|__|\|_______|
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
-::hellfire::       ${application.version}
+::${spring.application.name}::       ${spring.application.version}
 ::Spring Boot::  ${spring-boot.formatted-version}              ::
 author: StevenChen
 email: 949727157@qq.com
