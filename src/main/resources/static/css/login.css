@@ -85,6 +85,7 @@
     -webkit-appearance: none;
     outline:none;
     width:100%;
+    letter-spacing: 15px;
 }
 .login hr {
     background: #fff url() 0 0 no-repeat;

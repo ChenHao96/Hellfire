@@ -1,18 +1,3 @@
-/**
- * Copyright 2019 ChenHao96
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.github.chenhao96.controller.interceptor;
 
 import com.github.chenhao96.controller.AbstractController;
@@ -35,6 +20,15 @@ public class RequestInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String ip = getIp(request);
+        String requestUrl = getServletUrl(request);
+        request.setAttribute(AbstractController.CLIENT_IP_KEY, ip);
+        String param = catalinaMap2String(request.getParameterMap());
+        request.setAttribute(SERVLET_PATH_PARAMETER_NAME, requestUrl);
+        LOGGER.info("request address:{}:{},requestUrl:{},param:{}", ip, requestUrl, param);
+        return true;
+    }
+
+    public static String getServletUrl(HttpServletRequest request) {
         String requestUrl = request.getServletPath();
         if (StringUtils.isEmpty(requestUrl)) {
             requestUrl = request.getRequestURI();
@@ -43,11 +37,7 @@ public class RequestInterceptor implements HandlerInterceptor {
                 requestUrl = requestUrl.substring(contextPath.length());
             }
         }
-        request.setAttribute(AbstractController.CLIENT_IP_KEY, ip);
-        String param = catalinaMap2String(request.getParameterMap());
-        request.setAttribute(SERVLET_PATH_PARAMETER_NAME, requestUrl);
-        LOGGER.info("request address:{}:{},requestUrl:{},param:{}", ip, requestUrl, param);
-        return true;
+        return requestUrl;
     }
 
     private String catalinaMap2String(Map<String, String[]> map) {
@@ -70,7 +60,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         return msg.toString();
     }
 
-    public String getIp(HttpServletRequest request) {
+    public static String getIp(HttpServletRequest request) {
 
         String ip = request.getHeader("x-forwarded-for");
         if (StringUtils.isEmpty(ip) || "unknown".equalsIgnoreCase(ip)) {

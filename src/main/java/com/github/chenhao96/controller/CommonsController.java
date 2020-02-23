@@ -1,5 +1,6 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.controller.interceptor.VerificationDeviceInterceptor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,11 @@ public class CommonsController {
     @RequestMapping("/login")
     public String loginPage() {
         return "login";
+    }
+
+    @RequestMapping(VerificationDeviceInterceptor.VERIFICATION_DEVICE_URL)
+    public String verificationPage() {
+        return "verification";
     }
 
     @ResponseBody

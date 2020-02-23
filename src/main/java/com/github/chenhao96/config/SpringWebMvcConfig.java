@@ -1,6 +1,7 @@
 package com.github.chenhao96.config;
 
 import com.github.chenhao96.controller.interceptor.RequestInterceptor;
+import com.github.chenhao96.controller.interceptor.VerificationDeviceInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -20,6 +21,11 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
         return new RequestInterceptor();
     }
 
+    @Bean
+    public HandlerInterceptor verificationDeviceInterceptor() {
+        return new VerificationDeviceInterceptor();
+    }
+
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
@@ -28,6 +34,9 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(verificationDeviceInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns(VerificationDeviceInterceptor.VERIFICATION_DEVICE_URL)
+                .excludePathPatterns(SpringWebSecurityConfig.IGNORE_PATTERNS);
         registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/api/**");
     }
 
