@@ -1,8 +1,8 @@
 package com.github.chenhao96.entity.po;
 
-import org.springframework.security.core.GrantedAuthority;
+import java.io.Serializable;
 
-public class ATControls implements GrantedAuthority {
+public class ATControls implements Serializable {
 
     private Integer id;
 
@@ -10,9 +10,9 @@ public class ATControls implements GrantedAuthority {
 
     private String button_index;
 
-    private String authorityName;
+    private String optionName;
 
-    private String authority;
+    private String optionTag;
 
     private String menuNo;
 
@@ -46,21 +46,20 @@ public class ATControls implements GrantedAuthority {
         this.button_index = button_index;
     }
 
-    public String getAuthorityName() {
-        return authorityName;
+    public String getOptionName() {
+        return optionName;
     }
 
-    public void setAuthorityName(String authorityName) {
-        this.authorityName = authorityName;
+    public void setOptionName(String optionName) {
+        this.optionName = optionName;
     }
 
-    @Override
-    public String getAuthority() {
-        return authority;
+    public String getOptionTag() {
+        return optionTag;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
+    public void setOptionTag(String optionTag) {
+        this.optionTag = optionTag;
     }
 
     public String getMenuNo() {

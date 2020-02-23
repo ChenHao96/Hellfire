@@ -12,5 +12,5 @@ public interface ControlAuthService {
 
     Future<List<ATControls>> queryControlsByUserId(Integer userId);
 
-    Future<Boolean> putControlListByUser(UsersLogin user);
+    Future<Boolean> putAuthoritiesByUser(UsersLogin user);
 }

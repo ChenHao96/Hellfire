@@ -42,7 +42,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         UsersLogin result = new UsersLogin();
         Future<Boolean> treeFuture = menuAuthService.putMenuTreeByUser(result);
-        Future<Boolean> listFuture = controlAuthService.putControlListByUser(result);
+        Future<Boolean> listFuture = controlAuthService.putAuthoritiesByUser(result);
         BeanUtils.copyProperties(atUsers, result);
 
         try {

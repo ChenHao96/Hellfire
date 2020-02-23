@@ -27,7 +27,8 @@
     <form method="post" class="layui-form" th:action="@{/login}">
         <input name="username" placeholder="用户名" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
-        <input name="password" lay-verify="required" placeholder="密码" type="password" class="layui-input"/>
+        <input lay-verify="required" placeholder="密码" type="password" class="layui-input"/>
+        <input type="hidden" name="password"/>
         <hr class="hr15">
         <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit"/>
         <hr class="hr20">
@@ -42,7 +43,7 @@
             form.on('submit(login)', function(formData){
                 var password = $("form input[type=password]");
                 const hash = $.md5($(password).val());
-                $(password).val(hash);
+                $("form input[name=password]").val(hash);
                 return true;
             });
         });

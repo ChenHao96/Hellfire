@@ -1,14 +1,21 @@
 package com.github.chenhao96.service.impl;
 
 import com.github.chenhao96.entity.po.ATControls;
+import com.github.chenhao96.entity.vo.AuthUrlControls;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.ControlAuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -29,10 +36,25 @@ public class ControlAuthServiceImpl implements ControlAuthService {
         return new AsyncResult<>(findControlsByUserId(userId));
     }
 
+    private Collection<AuthUrlControls> createAuthorities(List<ATControls> controls) {
+        List<AuthUrlControls> result = Collections.emptyList();
+        if (!CollectionUtils.isEmpty(controls)) {
+            result = new LinkedList<>();
+            for (ATControls control : controls) {
+                if (ObjectUtils.nullSafeEquals(control.getStatus(), true)) {
+                    AuthUrlControls authUrlControl = new AuthUrlControls();
+                    BeanUtils.copyProperties(control, authUrlControl);
+                    result.add(authUrlControl);
+                }
+            }
+        }
+        return result;
+    }
+
     @Async
     @Override
-    public Future<Boolean> putControlListByUser(UsersLogin user) {
-        user.setAuthorities(findControlsByUserId(user.getId()));
+    public Future<Boolean> putAuthoritiesByUser(UsersLogin user) {
+        user.setAuthorities(createAuthorities(findControlsByUserId(user.getId())));
         return new AsyncResult<>(true);
     }
 }

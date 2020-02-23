@@ -1,6 +1,5 @@
 package com.github.chenhao96.entity.vo;
 
-import com.github.chenhao96.entity.po.ATControls;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.po.UserStatusEnum;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,13 +9,25 @@ import java.util.List;
 
 public class UsersLogin extends ATUsers implements UserDetails {
 
-    private List<MenusTree> menuTrees;
+    private List<AuthMenusTree> menuTrees;
 
-    private Collection<ATControls> authorities;
+    private Collection<AuthUrlControls> authorities;
 
     @Override
-    public Collection<ATControls> getAuthorities() {
+    public Collection<AuthUrlControls> getAuthorities() {
         return this.authorities;
+    }
+
+    public void setAuthorities(Collection<AuthUrlControls> authorities) {
+        this.authorities = authorities;
+    }
+
+    public List<AuthMenusTree> getMenuTrees() {
+        return this.menuTrees;
+    }
+
+    public void setMenuTrees(List<AuthMenusTree> menuTrees) {
+        this.menuTrees = menuTrees;
     }
 
     @Override
@@ -38,17 +49,5 @@ public class UsersLogin extends ATUsers implements UserDetails {
     @Override
     public boolean isEnabled() {
         return UserStatusEnum.ENABLE.equals(getStatus());
-    }
-
-    public void setAuthorities(Collection<ATControls> authorities) {
-        this.authorities = authorities;
-    }
-
-    public List<MenusTree> getMenuTrees() {
-        return menuTrees;
-    }
-
-    public void setMenuTrees(List<MenusTree> menuTrees) {
-        this.menuTrees = menuTrees;
     }
 }
