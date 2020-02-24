@@ -1,8 +1,8 @@
 package com.github.chenhao96.service;
 
-import com.github.chenhao96.entity.po.ATUsers;
+import com.github.chenhao96.entity.bo.ATUserBo;
 
 public interface UserService {
 
-    boolean registerNewUser(ATUsers users);
+    boolean registerNewUser(ATUserBo user);
 }
