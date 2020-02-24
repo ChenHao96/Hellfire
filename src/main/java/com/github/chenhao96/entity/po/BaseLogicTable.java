@@ -2,7 +2,7 @@ package com.github.chenhao96.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableLogic;
 
-public class BaseLogicTable extends BaseTable {
+public abstract class BaseLogicTable extends BaseTable {
 
     @TableLogic
     private Boolean logic;

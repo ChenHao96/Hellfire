@@ -1,6 +1,7 @@
 package com.github.chenhao96.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
 
 import java.util.Date;
@@ -22,8 +23,10 @@ public class ATUsers extends BaseLogicTable {
 
     private UserStatusEnum status;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expiredTime;
 
     public String getUsername() {

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 
 import java.io.Serializable;
 
-public class BaseTable implements Serializable {
+public abstract class BaseTable implements Serializable {
 
     @TableId(type = IdType.AUTO)
     private Integer id;

@@ -1,11 +1,11 @@
 package com.github.chenhao96.config.security;
 
+import com.github.chenhao96.adaptor.ATUserAdaptor;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.ControlAuthService;
 import com.github.chenhao96.service.MenuAuthService;
-import com.github.chenhao96.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -24,7 +24,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUserDetailsService.class);
 
     @Autowired
-    private UserService userService;
+    private ATUserAdaptor userAdaptor;
 
     @Autowired
     private MenuAuthService menuAuthService;
@@ -36,7 +36,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         long startTime = System.currentTimeMillis();
-        ATUsers atUsers = userService.queryUserByUsername(username);
+        ATUsers atUsers = userAdaptor.queryUserByUsername(username);
         if (atUsers == null) {
             throw new UsernameNotFoundException("用户账号不存在!");
         }
@@ -55,7 +55,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
             result.setStatus(UserStatusEnum.DISABLE);
         }
 
-        LOGGER.info("loadUserByUsername use time:{} Millis.",System.currentTimeMillis()-startTime);
+        LOGGER.info("loadUserByUsername use time:{} Millis.", System.currentTimeMillis() - startTime);
         return result;
     }
 }

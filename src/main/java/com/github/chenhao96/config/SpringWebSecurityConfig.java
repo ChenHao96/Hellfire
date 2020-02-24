@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
+import javax.annotation.Resource;
+
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -22,7 +24,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Value("${spring.profiles.active}")
     private String active;
 
-    @Autowired
+    @Resource
     private UserDetailsService userDetailsService;
 
     @Autowired

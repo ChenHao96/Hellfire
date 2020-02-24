@@ -4,17 +4,6 @@ server:
     context-path: /hellfire
     session:
       timeout: 1200
-    multipart:
-      max-file-size: 30MB
-      max-request-size: 5MB
-
-verification:
-  device:
-    codeLength: 6
-    #30天
-    lifeSeconds: 2592000
-    #5分钟
-    codeLifeMilliseconds: 300000
 
 spring:
   application:
@@ -32,7 +21,8 @@ spring:
   # DataSource Config
   datasource:
     platform: mysql
-    url: jdbc:mysql://localhost:3306/test
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
     username: root
     password: 123456
 
@@ -40,6 +30,15 @@ mybatis-plus:
   typeEnumsPackage: com.github.chenhao96.entity.enums
   global-config:
     db-config:
-      logic-delete-field: logic
       logic-delete-value: 1
       logic-not-delete-value: 0
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+verification:
+  device:
+    codeLength: 6
+    #30天
+    lifeSeconds: 2592000
+    #5分钟
+    codeLifeMilliseconds: 300000
