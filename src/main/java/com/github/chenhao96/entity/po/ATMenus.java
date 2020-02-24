@@ -1,10 +1,9 @@
 package com.github.chenhao96.entity.po;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-public class ATMenus implements Serializable {
-
-    private Integer id;
+@TableName("a_t_menus")
+public class ATMenus extends BaseLogicTable {
 
     private Integer parentId;
 
@@ -17,14 +16,6 @@ public class ATMenus implements Serializable {
     private String menuNo;
 
     private Boolean status;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getParentId() {
         return parentId;
@@ -77,13 +68,14 @@ public class ATMenus implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ATMenus{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(getId());
         sb.append(", parentId=").append(parentId);
         sb.append(", menuIcon='").append(menuIcon).append('\'');
         sb.append(", menuName='").append(menuName).append('\'');
         sb.append(", menuIndex='").append(menuIndex).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');
         sb.append(", status=").append(status);
+        sb.append(", logic=").append(getLogic());
         sb.append('}');
         return sb.toString();
     }

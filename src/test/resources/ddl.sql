@@ -9,10 +9,12 @@ CREATE TABLE `a_t_users` (
   `status` tinyint(4) NOT NULL COMMENT '账号状态',
   `create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
   `expired_time` datetime COMMENT '截止登录时间',
+  `logic` bit(1) NOT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`) USING HASH,
   KEY `phone_number` (`phone_number`) USING HASH,
-  KEY `status` (`status`) USING BTREE
+  KEY `status` (`status`) USING BTREE,
+  KEY `logic` (`logic`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统账号信息';
 
 CREATE TABLE `a_t_menus` (
@@ -23,9 +25,11 @@ CREATE TABLE `a_t_menus` (
   `menu_index` varchar(255) NOT NULL COMMENT '菜单索引',
   `menu_no` int NOT NULL DEFAULT 0 COMMENT '菜单顺序',
   `status` bit(1) NOT NULL COMMENT '状态',
+  `logic` bit(1) NOT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
-  KEY `status` (`status`) USING BTREE
+  KEY `status` (`status`) USING BTREE,
+  KEY `logic` (`logic`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统菜单信息';
 
 CREATE TABLE `a_t_menu_auth` (
@@ -51,9 +55,11 @@ CREATE TABLE `a_t_controls` (
   `need_password` bit(1) NOT NULL COMMENT '是否需要密码',
   `status` bit(1) NOT NULL COMMENT '状态',
   `warring_prompt` bit(1) NOT NULL COMMENT '警告提示',
+  `logic` bit(1) NOT NULL COMMENT '逻辑删除',
   PRIMARY KEY (`id`),
   KEY `menu_id` (`menu_id`) USING BTREE,
-  KEY `status` (`status`) USING BTREE
+  KEY `status` (`status`) USING BTREE,
+  KEY `logic` (`logic`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统功能信息';
 
 CREATE TABLE `a_t_control_auth` (

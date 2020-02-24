@@ -1,7 +1,7 @@
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /hellfire
     session:
       timeout: 1200
     multipart:
@@ -31,7 +31,15 @@ spring:
 
   # DataSource Config
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/test
     username: root
     password: 123456
+
+mybatis-plus:
+  typeEnumsPackage: com.github.chenhao96.entity.enums
+  global-config:
+    db-config:
+      logic-delete-field: logic
+      logic-delete-value: 1
+      logic-not-delete-value: 0

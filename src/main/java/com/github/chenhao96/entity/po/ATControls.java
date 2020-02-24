@@ -1,10 +1,9 @@
 package com.github.chenhao96.entity.po;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 
-public class ATControls implements Serializable {
-
-    private Integer id;
+@TableName("a_t_controls")
+public class ATControls extends BaseLogicTable {
 
     private Integer menuId;
 
@@ -21,14 +20,6 @@ public class ATControls implements Serializable {
     private Boolean status;
 
     private Boolean warringPrompt;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getMenuId() {
         return menuId;
@@ -92,5 +83,22 @@ public class ATControls implements Serializable {
 
     public void setWarringPrompt(Boolean warringPrompt) {
         this.warringPrompt = warringPrompt;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ATControls{");
+        sb.append("id=").append(getId());
+        sb.append(", menuId=").append(menuId);
+        sb.append(", button_index='").append(button_index).append('\'');
+        sb.append(", optionName='").append(optionName).append('\'');
+        sb.append(", optionTag='").append(optionTag).append('\'');
+        sb.append(", menuNo='").append(menuNo).append('\'');
+        sb.append(", needPassword=").append(needPassword);
+        sb.append(", status=").append(status);
+        sb.append(", warringPrompt=").append(warringPrompt);
+        sb.append(", logic=").append(getLogic());
+        sb.append('}');
+        return sb.toString();
     }
 }

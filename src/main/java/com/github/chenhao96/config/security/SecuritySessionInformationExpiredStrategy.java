@@ -1,4 +1,4 @@
-package com.github.chenhao96.security;
+package com.github.chenhao96.config.security;
 
 import com.github.chenhao96.config.SpringWebSecurityConfig;
 import org.springframework.security.core.context.SecurityContextHolder;

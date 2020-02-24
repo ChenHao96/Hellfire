@@ -1,7 +1,7 @@
 package com.github.chenhao96.entity.vo;
 
+import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
-import com.github.chenhao96.entity.po.UserStatusEnum;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;

@@ -1,7 +1,7 @@
 package com.github.chenhao96.config;
 
-import com.github.chenhao96.security.SecurityAuthenticationHandler;
-import com.github.chenhao96.security.SecuritySessionInformationExpiredStrategy;
+import com.github.chenhao96.config.security.SecurityAuthenticationHandler;
+import com.github.chenhao96.config.security.SecuritySessionInformationExpiredStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

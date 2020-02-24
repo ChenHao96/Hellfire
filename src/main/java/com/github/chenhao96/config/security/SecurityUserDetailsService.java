@@ -1,7 +1,7 @@
-package com.github.chenhao96.security;
+package com.github.chenhao96.config.security;
 
+import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
-import com.github.chenhao96.entity.po.UserStatusEnum;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.ControlAuthService;
 import com.github.chenhao96.service.MenuAuthService;

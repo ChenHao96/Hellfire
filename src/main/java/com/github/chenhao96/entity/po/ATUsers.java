@@ -1,11 +1,12 @@
 package com.github.chenhao96.entity.po;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.github.chenhao96.entity.enums.UserStatusEnum;
+
 import java.util.Date;
 
-public class ATUsers implements Serializable {
-
-    private Integer id;
+@TableName("a_t_users")
+public class ATUsers extends BaseLogicTable {
 
     private String username;
 
@@ -24,14 +25,6 @@ public class ATUsers implements Serializable {
     private Date createTime;
 
     private Date expiredTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -108,16 +101,17 @@ public class ATUsers implements Serializable {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ATUsers{");
-        sb.append("id=").append(id);
+        sb.append("id=").append(getId());
         sb.append(", username='").append(username).append('\'');
         sb.append(", nickName='").append(nickName).append('\'');
         sb.append(", email='").append(email).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", optionPassword='").append(optionPassword).append('\'');
+        sb.append(", password= [PROTECTED]");
+        sb.append(", optionPassword= [PROTECTED]");
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", expiredTime=").append(expiredTime);
+        sb.append(", logic=").append(getLogic());
         sb.append('}');
         return sb.toString();
     }
