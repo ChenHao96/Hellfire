@@ -1,6 +1,7 @@
 package com.github.chenhao96.config;
 
-import com.github.chenhao96.handler.SecurityAuthenticationHandler;
+import com.github.chenhao96.security.SecurityAuthenticationHandler;
+import com.github.chenhao96.security.SecuritySessionInformationExpiredStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -31,29 +33,44 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public SessionInformationExpiredStrategy securitySessionInformationExpiredStrategy() {
+        return new SecuritySessionInformationExpiredStrategy();
+    }
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    public static final String[] IGNORE_PATTERNS = new String[]{"/login", "/logout", "/favicon.ico", "/css/**", "/js/**", "/image/**", "/framework/**"};
+    public static final String LOGIN_URL_VALUE = "/login";
+    public static final String ERROR_URL_VALUE = "/error";
+    //TODO:Security 导致无法get请求
+    public static final String LOGOUT_URL_VALUE = "/logout";
+    public static final String[] IGNORE_PATTERNS = new String[]{LOGIN_URL_VALUE, LOGOUT_URL_VALUE, ERROR_URL_VALUE, "/favicon.ico", "/css/**", "/js/**", "/image/**", "/framework/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         if (!"prod".equalsIgnoreCase(active)) {
             //非生产环境时，允许跨域请求伪造
-            http.csrf().disable();
+//            http.csrf().disable();
         }
 
         http.authorizeRequests().antMatchers(IGNORE_PATTERNS).permitAll()
-                .anyRequest().fullyAuthenticated().and()
-                .exceptionHandling().accessDeniedPage("/403");
+                .anyRequest().authenticated().and()
+                .exceptionHandling().accessDeniedPage(ERROR_URL_VALUE);
 
-        http.formLogin().loginPage("/login")
+        http.formLogin().loginPage(LOGIN_URL_VALUE)
                 .failureHandler(securityAuthenticationHandler)
-                .and().logout().invalidateHttpSession(true)
+                .and().logout().logoutUrl(LOGOUT_URL_VALUE)
+                .logoutSuccessUrl(LOGIN_URL_VALUE)
                 .deleteCookies("JSESSIONID", "SESSIONID", "SESSION")
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/login");
+                .invalidateHttpSession(true);
+
+        //最多运行一个账号登录
+        //UserDetails需要实现hash,equals
+        http.sessionManagement().maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredSessionStrategy(securitySessionInformationExpiredStrategy());
     }
 }

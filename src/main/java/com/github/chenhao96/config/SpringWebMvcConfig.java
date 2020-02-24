@@ -29,14 +29,14 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
-        registry.addViewController("/403").setViewName("403");
+        registry.addViewController(SpringWebSecurityConfig.ERROR_URL_VALUE).setViewName("error");
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(verificationDeviceInterceptor()).addPathPatterns("/**")
-                .excludePathPatterns(VerificationDeviceInterceptor.VERIFICATION_DEVICE_URL)
-                .excludePathPatterns(SpringWebSecurityConfig.IGNORE_PATTERNS);
+                .excludePathPatterns(SpringWebSecurityConfig.IGNORE_PATTERNS)
+                .excludePathPatterns(VerificationDeviceInterceptor.VERIFICATION_DEVICE_URL);
         registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/api/**");
     }
 

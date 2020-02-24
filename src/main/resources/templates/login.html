@@ -39,7 +39,7 @@
         layui.use('form', function(){
             var form = layui.form;
             form.on('submit(login)', function(formData){
-                const hash = $.md5($("form input[type=password]").val());
+                const hash = $.md5($("form input[type=password]").val()+"+");
                 $("form input[name=password]").val(hash);
                 return true;
             });

@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Future;
 
 @Service
@@ -27,7 +24,11 @@ public class ControlAuthServiceImpl implements ControlAuthService {
     @Override
     public List<ATControls> findControlsByUserId(Integer userId) {
         //TODO:
-        return null;
+        List<ATControls> result = new ArrayList<>(1);
+        ATControls item = new ATControls();
+        item.setOptionTag("commons:test");
+        result.add(item);
+        return result;
     }
 
     @Async

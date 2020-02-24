@@ -1,5 +1,6 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.config.SpringWebSecurityConfig;
 import com.github.chenhao96.controller.interceptor.VerificationDeviceInterceptor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CommonsController {
 
-    @RequestMapping("/login")
+    @RequestMapping(SpringWebSecurityConfig.LOGIN_URL_VALUE)
     public String loginPage() {
         return "login";
     }
@@ -24,6 +25,7 @@ public class CommonsController {
     @GetMapping("/test")
     @PreAuthorize("hasAuthority('commons:test')")
     public String testPage() {
+        //TODO:Security 导致无法get请求
         return "test";
     }
 }

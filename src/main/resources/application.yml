@@ -11,6 +11,14 @@ server:
 logging:
   path: logs
 
+verification:
+  device:
+    codeLength: 6
+    #30天
+    lifeSeconds: 2592000
+    #5分钟
+    codeLifeMilliseconds: 300000
+
 spring:
   application:
     version: 0.0.1

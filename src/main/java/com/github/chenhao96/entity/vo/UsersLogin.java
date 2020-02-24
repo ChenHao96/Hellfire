@@ -50,4 +50,14 @@ public class UsersLogin extends ATUsers implements UserDetails {
     public boolean isEnabled() {
         return UserStatusEnum.ENABLE.equals(getStatus());
     }
+
+    @Override
+    public int hashCode() {
+        return getUsername().hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj != null && this.hashCode() == obj.hashCode();
+    }
 }

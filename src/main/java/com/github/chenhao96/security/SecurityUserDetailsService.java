@@ -1,4 +1,4 @@
-package com.github.chenhao96.service.impl;
+package com.github.chenhao96.security;
 
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.po.UserStatusEnum;
@@ -19,9 +19,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class SecurityUserDetailsService implements UserDetailsService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityUserDetailsService.class);
 
     @Autowired
     private UserService userService;

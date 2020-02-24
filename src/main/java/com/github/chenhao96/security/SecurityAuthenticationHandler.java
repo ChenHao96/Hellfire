@@ -1,5 +1,6 @@
-package com.github.chenhao96.handler;
+package com.github.chenhao96.security;
 
+import com.github.chenhao96.config.SpringWebSecurityConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -36,6 +37,6 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
         LOGGER.warn("session:{}, AuthenticationException:{}", httpServletRequest.getSession().getId(), e.getClass());
 
         httpServletRequest.setAttribute("message", message);
-        httpServletRequest.getRequestDispatcher("/login").forward(httpServletRequest, httpServletResponse);
+        httpServletRequest.getRequestDispatcher(SpringWebSecurityConfig.LOGIN_URL_VALUE).forward(httpServletRequest, httpServletResponse);
     }
 }

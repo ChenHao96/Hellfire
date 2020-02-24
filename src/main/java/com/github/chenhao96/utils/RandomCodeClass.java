@@ -72,7 +72,7 @@ public final class RandomCodeClass {
     public Set<String> createSetCode(int length, int size) {
         Set<String> result = new HashSet<>(size);
         lock.lock();
-        this.characterSet = exchangeCode(this.characterSet, this.random);
+        exchangeCode(this.characterSet, this.random);
         lock.unlock();
         createCode(result, this.random, length, size, this.characterSet);
         return result;
@@ -81,7 +81,7 @@ public final class RandomCodeClass {
     public List<String> createListCode(int length, int size) {
         List<String> result = new ArrayList<>(size);
         lock.lock();
-        this.characterSet = exchangeCode(this.characterSet, this.random);
+        exchangeCode(this.characterSet, this.random);
         lock.unlock();
         createCode(result, this.random, length, size, this.characterSet);
         return result;
@@ -89,7 +89,7 @@ public final class RandomCodeClass {
 
     private static void createCode(Collection<String> collection, Random random, int length, int size, char[] tmp) {
         while (collection.size() < size) {
-            tmp = exchangeCode(tmp, random);
+            exchangeCode(tmp, random);
             StringBuilder sb = new StringBuilder(length);
             for (int i = 0; i < length; i++) {
                 sb.append(tmp[random.nextInt(tmp.length)]);
@@ -98,7 +98,7 @@ public final class RandomCodeClass {
         }
     }
 
-    private static char[] exchangeCode(char[] tmp, Random random) {
+    private static void exchangeCode(char[] tmp, Random random) {
         int index;
         char swap;
         for (int i = 0; i < tmp.length; i++) {
@@ -107,7 +107,6 @@ public final class RandomCodeClass {
             tmp[index] = tmp[tmp.length - i - 1];
             tmp[tmp.length - i - 1] = swap;
         }
-        return tmp;
     }
 
     public enum CodeCharArray {
