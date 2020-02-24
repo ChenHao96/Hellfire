@@ -24,6 +24,11 @@ public class MenuAuthServiceImpl implements MenuAuthService {
     @Override
     public List<ATMenus> findMenusByUserId(Integer userId) {
         //TODO:
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 

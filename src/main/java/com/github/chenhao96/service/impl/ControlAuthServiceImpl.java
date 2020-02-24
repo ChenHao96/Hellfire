@@ -26,8 +26,14 @@ public class ControlAuthServiceImpl implements ControlAuthService {
         //TODO:
         List<ATControls> result = new ArrayList<>(1);
         ATControls item = new ATControls();
+        item.setStatus(true);
         item.setOptionTag("commons:test");
         result.add(item);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

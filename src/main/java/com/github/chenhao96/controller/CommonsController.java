@@ -25,7 +25,6 @@ public class CommonsController {
     @GetMapping("/test")
     @PreAuthorize("hasAuthority('commons:test')")
     public String testPage() {
-        //TODO:Security 导致无法get请求
         return "test";
     }
 }

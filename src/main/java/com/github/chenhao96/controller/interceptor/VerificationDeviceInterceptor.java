@@ -135,7 +135,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     private boolean checkEnableDevice(HttpServletRequest request, HttpServletResponse response) {
         //获取登录用户的信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(authentication.getPrincipal() instanceof UserDetails){
+        if (authentication.getPrincipal() != null && authentication.getPrincipal() instanceof UserDetails) {
             UserDetails usersLogin = (UserDetails) authentication.getPrincipal();
             if (usersLogin == null) return false;
             //cookies验证设备有效

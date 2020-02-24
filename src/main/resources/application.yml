@@ -8,9 +8,6 @@ server:
       max-file-size: 30MB
       max-request-size: 5MB
 
-logging:
-  path: logs
-
 verification:
   device:
     codeLength: 6

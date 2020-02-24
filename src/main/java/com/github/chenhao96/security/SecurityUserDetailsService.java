@@ -35,6 +35,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        long startTime = System.currentTimeMillis();
         ATUsers atUsers = userService.queryUserByUsername(username);
         if (atUsers == null) {
             throw new UsernameNotFoundException("用户账号不存在!");
@@ -53,6 +54,8 @@ public class SecurityUserDetailsService implements UserDetailsService {
             LOGGER.warn("exec future fail.", e);
             result.setStatus(UserStatusEnum.DISABLE);
         }
+
+        LOGGER.info("loadUserByUsername use time:{} Millis.",System.currentTimeMillis()-startTime);
         return result;
     }
 }

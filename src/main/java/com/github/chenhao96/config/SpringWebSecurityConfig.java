@@ -45,16 +45,12 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String LOGIN_URL_VALUE = "/login";
     public static final String ERROR_URL_VALUE = "/error";
-    //TODO:Security 导致无法get请求
     public static final String LOGOUT_URL_VALUE = "/logout";
     public static final String[] IGNORE_PATTERNS = new String[]{LOGIN_URL_VALUE, LOGOUT_URL_VALUE, ERROR_URL_VALUE, "/favicon.ico", "/css/**", "/js/**", "/image/**", "/framework/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        if (!"prod".equalsIgnoreCase(active)) {
-            //非生产环境时，允许跨域请求伪造
-//            http.csrf().disable();
-        }
+        http.csrf().disable();
 
         http.authorizeRequests().antMatchers(IGNORE_PATTERNS).permitAll()
                 .anyRequest().authenticated().and()

@@ -39,8 +39,5 @@ $(function(){
         $('#tab_right').hide();
         $('#tab_show').hide();
     });
-    $(".safeLogout").click(function(){
-        $(this).next("form").submit();
-    });
 });
 $(window).resize(resizeXFrame);
