@@ -13,6 +13,6 @@ public class UserDetailsServiceTest extends BaseTest {
 
     @Test
     public void queryUserByUsername() {
-        System.out.println(userDetailsService.loadUserByUsername("admin"));
+        System.out.println(userDetailsService.loadUserByUsername("steven"));
     }
 }

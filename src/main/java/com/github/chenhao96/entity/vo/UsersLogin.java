@@ -47,4 +47,27 @@ public class UsersLogin extends ATUsers implements UserDetails {
     public boolean equals(Object obj) {
         return obj != null && this.hashCode() == obj.hashCode();
     }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("UsersLogin{");
+        sb.append("id=").append(getId());
+        sb.append(", username='").append(getUsername()).append('\'');
+        sb.append(", nickName='").append(getNickName()).append('\'');
+        sb.append(", email='").append(getEmail()).append('\'');
+        sb.append(", phoneNumber='").append(getPhoneNumber()).append('\'');
+        if (getPassword() != null)
+            sb.append(", password= [PROTECTED]");
+        if (getOptionPassword() != null)
+            sb.append(", optionPassword= [PROTECTED]");
+        sb.append(", status=").append(getStatus());
+        sb.append(", createAt=").append(getCreateAt());
+        sb.append(", createTime=").append(getCreateTime());
+        sb.append(", expiredTime=").append(getExpiredTime());
+        sb.append(", logic=").append(getLogic());
+        sb.append(", menuTrees=").append(menuTrees);
+        sb.append(", authorities=").append(authorities);
+        sb.append('}');
+        return sb.toString();
+    }
 }
