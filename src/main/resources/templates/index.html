@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>管理系统</title>
@@ -22,13 +21,15 @@
     <div class="layui-header">
         <div class="layui-logo">管理系统</div>
         <ul class="layui-nav layui-layout-left" lay-filter="navTab">
+<!--            <li class="layui-nav-item" th:if="${not #lists.isEmpty(#authentication.principal.menuTrees)}"-->
+<!--                th:each="first:${#authentication.principal.menuTrees}">-->
+<!--                <a href="javascript:;" th:taggle="${first.menuIndex}" th:text="${first.menuName}">-</a>-->
+<!--            </li>-->
             <li class="layui-nav-item"><a href="javascript:;" taggle="consoleMenu">控制台</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" taggle="businessMenu">业务系统</a></li>
-            <li class="layui-nav-item"><a href="javascript:;" taggle="enterpriseMenu">企业管理</a></li>
         </ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;"><th:block sec:authentication="principal.nickName">--未知--</th:block></a>
+                <a href="javascript:;" th:text="${#authentication.principal.nickName}">--未知--</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;">基本资料</a></dd>
                     <dd><a href="javascript:;">安全设置</a></dd>
@@ -41,127 +42,29 @@
     </div>
     <div class="layui-side layui-bg-black">
         <div class="layui-side-scroll">
+<!--            <ul class="layui-nav layui-nav-tree menuUlTab" th:id="${first.menuIndex}"-->
+<!--                th:if="${not #lists.isEmpty(#authentication.principal.menuTrees)}"-->
+<!--                th:each="first:${#authentication.principal.menuTrees}">-->
+<!--                <li class="layui-nav-item" th:if="${not #lists.isEmpty(first.child)}" th:each="second:${first.child}">-->
+<!--                    <a href="javascript:;" class="layui-menu-button" th:text="${second.menuName}" th:id="${second.menuIndex}">-</a>-->
+<!--                    <dl class="layui-nav-child" th:if="${not #lists.isEmpty(second.child)}">-->
+<!--                        <dd th:each="last:${second.child}">-->
+<!--                            <a href="javascript:;" class="layui-menu-button" th:text="${last.menuName}" th:id="${last.menuIndex}">-</a>-->
+<!--                        </dd>-->
+<!--                    </dl>-->
+<!--                </li>-->
+<!--            </ul>-->
+
             <ul class="layui-nav layui-nav-tree menuUlTab" id="consoleMenu">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">数据库</a>
+                    <a href="javascript:;" class="layui-menu-button" id="databases">数据库</a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">服务器管理</a>
+                    <a href="javascript:;" class="layui-menu-button">服务器管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">服务器列表</a></dd>
-                        <dd><a href="javascript:;">添加服务器</a></dd>
-                        <dd><a href="javascript:;">服务器配置</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">账号管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">账号查询</a></dd>
-                        <dd><a href="javascript:;">账号列表</a></dd>
-                        <dd><a href="javascript:;">添加账号</a></dd>
-                        <dd><a href="javascript:;">修改账号</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">菜单管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">菜单查询</a></dd>
-                        <dd><a href="javascript:;">菜单列表</a></dd>
-                        <dd><a href="javascript:;">添加菜单</a></dd>
-                        <dd><a href="javascript:;">修改菜单</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">授权管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">授权查询</a></dd>
-                        <dd><a href="javascript:;">添加授权</a></dd>
-                        <dd><a href="javascript:;">修改菜单</a></dd>
-                    </dl>
-                </li>
-            </ul>
-            <ul class="layui-nav layui-nav-tree menuUlTab" id="businessMenu">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">服务管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">订单投诉</a></dd>
-                        <dd><a href="javascript:;">服务投诉</a></dd>
-                        <dd><a href="javascript:;">建议/意见</a></dd>
-                        <dd><a href="javascript:;">退款订单</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">订单管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">订单查询</a></dd>
-                        <dd><a href="javascript:;">订单列表</a></dd>
-                        <dd><a href="javascript:;">添加订单</a></dd>
-                        <dd><a href="javascript:;">修改订单信息</a></dd>
-                        <dd><a href="javascript:;">订单评价</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">产品管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">产品查询</a></dd>
-                        <dd><a href="javascript:;">产品列表</a></dd>
-                        <dd><a href="javascript:;">添加产品</a></dd>
-                        <dd><a href="javascript:;">修改产品信息</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">用户管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户查询</a></dd>
-                        <dd><a href="javascript:;">用户列表</a></dd>
-                        <dd><a href="javascript:;">添加用户</a></dd>
-                        <dd><a href="javascript:;">用户信息修改</a></dd>
-                        <dd><a href="javascript:;">消费记录</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">用户等级管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">用户等级列表</a></dd>
-                        <dd><a href="javascript:;">添加用户等级</a></dd>
-                        <dd><a href="javascript:;">用户等级修改</a></dd>
-                    </dl>
-                </li>
-            </ul>
-            <ul class="layui-nav layui-nav-tree menuUlTab" id="enterpriseMenu">
-                <li class="layui-nav-item">
-                    <a href="javascript:;">企业管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">企业查询</a></dd>
-                        <dd><a href="javascript:;">企业列表</a></dd>
-                        <dd><a href="javascript:;">添加企业</a></dd>
-                        <dd><a href="javascript:;">修改企业信息</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">门店管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">门店查询</a></dd>
-                        <dd><a href="javascript:;">门店列表</a></dd>
-                        <dd><a href="javascript:;">添加门店</a></dd>
-                        <dd><a href="javascript:;">修改门店信息</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">员工管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">员工查询</a></dd>
-                        <dd><a href="javascript:;">员工列表</a></dd>
-                        <dd><a href="javascript:;">添加员工</a></dd>
-                        <dd><a href="javascript:;">修改员工</a></dd>
-                    </dl>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;">员工考核</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">出勤情况</a></dd>
-                        <dd><a href="javascript:;">请假审批</a></dd>
-                        <dd><a href="javascript:;">员工业绩</a></dd>
+                        <dd><a href="javascript:;" class="layui-menu-button">服务器列表</a></dd>
+                        <dd><a href="javascript:;" class="layui-menu-button">添加服务器</a></dd>
+                        <dd><a href="javascript:;" class="layui-menu-button">服务器配置</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -182,6 +85,7 @@
             </div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
+                    <!--TODO:修改欢迎页面-->
                     <h2>Hello World!</h2>
                 </div>
                 <!--                <div class="layui-tab-item">-->
@@ -198,6 +102,7 @@
     </div>
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
+<script language='javascript' th:inline="javascript">const index2PageUrl = /*[[@{/js/index2Page.json}]]*/ "../static/js/index2Page.json";</script>
 <script th:src="@{/js/index.js}" src="../static/js/index.js"></script>
 </body>
 </html>

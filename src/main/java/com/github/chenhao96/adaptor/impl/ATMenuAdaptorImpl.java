@@ -1,5 +1,6 @@
 package com.github.chenhao96.adaptor.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.chenhao96.adaptor.ATMenuAdaptor;
 import com.github.chenhao96.entity.po.ATMenus;
 import com.github.chenhao96.mapper.ATMenusMapper;
@@ -16,6 +17,9 @@ public class ATMenuAdaptorImpl implements ATMenuAdaptor {
 
     @Override
     public List<ATMenus> findMenusByIds(List<Integer> ids) {
-        return atMenusMapper.selectBatchIds(ids);
+        QueryWrapper<ATMenus> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id", ids);
+        queryWrapper.orderByAsc("menu_no");
+        return atMenusMapper.selectList(queryWrapper);
     }
 }

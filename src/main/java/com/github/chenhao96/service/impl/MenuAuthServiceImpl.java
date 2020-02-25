@@ -41,7 +41,7 @@ public class MenuAuthServiceImpl implements MenuAuthService {
         if (CollectionUtils.isEmpty(menuAuth)) return null;
         List<Integer> menuId = new ArrayList<>(menuAuth.size());
         for (ATMenuAuth auth : menuAuth) {
-            if (ObjectUtils.nullSafeEquals(1, auth.getStatus())) {
+            if (ObjectUtils.nullSafeEquals(true, auth.getStatus())) {
                 menuId.add(auth.getMenuId());
             }
         }

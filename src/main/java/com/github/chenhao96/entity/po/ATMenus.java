@@ -3,6 +3,7 @@ package com.github.chenhao96.entity.po;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
 @Data
 @Accessors(chain = true)
@@ -23,8 +24,10 @@ public class ATMenus extends BaseStatusTable {
     public String toString() {
         final StringBuilder sb = new StringBuilder("ATMenus{");
         sb.append("id=").append(getId());
-        sb.append(", parentId=").append(parentId);
-        sb.append(", menuIcon='").append(menuIcon).append('\'');
+        if(!StringUtils.isEmpty(parentId))
+            sb.append(", parentId=").append(parentId);
+        if(!StringUtils.isEmpty(menuIcon))
+            sb.append(", menuIcon='").append(menuIcon).append('\'');
         sb.append(", menuName='").append(menuName).append('\'');
         sb.append(", menuIndex='").append(menuIndex).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');

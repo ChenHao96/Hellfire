@@ -5,6 +5,7 @@ import com.github.chenhao96.entity.po.ATUsers;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 
 import java.util.Collection;
 import java.util.List;
@@ -54,7 +55,8 @@ public class UsersLogin extends ATUsers implements UserDetails {
         sb.append("id=").append(getId());
         sb.append(", username='").append(getUsername()).append('\'');
         sb.append(", nickName='").append(getNickName()).append('\'');
-        sb.append(", email='").append(getEmail()).append('\'');
+        if(!StringUtils.isEmpty(getEmail()))
+            sb.append(", email='").append(getEmail()).append('\'');
         sb.append(", phoneNumber='").append(getPhoneNumber()).append('\'');
         if (getPassword() != null)
             sb.append(", password= [PROTECTED]");
@@ -63,7 +65,8 @@ public class UsersLogin extends ATUsers implements UserDetails {
         sb.append(", status=").append(getStatus());
         sb.append(", createAt=").append(getCreateAt());
         sb.append(", createTime=").append(getCreateTime());
-        sb.append(", expiredTime=").append(getExpiredTime());
+        if (getExpiredTime() != null)
+            sb.append(", expiredTime=").append(getExpiredTime());
         sb.append(", logic=").append(getLogic());
         sb.append(", menuTrees=").append(menuTrees);
         sb.append(", authorities=").append(authorities);

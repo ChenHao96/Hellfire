@@ -7,5 +7,5 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class BaseStatusTable extends BaseTable {
 
-    private Integer status;
+    private Boolean status;
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
@@ -40,7 +41,8 @@ public class ATUsers extends BaseTable {
         sb.append("id=").append(getId());
         sb.append(", username='").append(username).append('\'');
         sb.append(", nickName='").append(nickName).append('\'');
-        sb.append(", email='").append(email).append('\'');
+        if(!StringUtils.isEmpty(email))
+            sb.append(", email='").append(email).append('\'');
         sb.append(", phoneNumber='").append(phoneNumber).append('\'');
         if (password != null)
             sb.append(", password= [PROTECTED]");
@@ -49,7 +51,8 @@ public class ATUsers extends BaseTable {
         sb.append(", status=").append(status);
         sb.append(", createAt=").append(getCreateAt());
         sb.append(", createTime=").append(getCreateTime());
-        sb.append(", expiredTime=").append(expiredTime);
+        if (expiredTime != null)
+            sb.append(", expiredTime=").append(expiredTime);
         sb.append(", logic=").append(getLogic());
         sb.append('}');
         return sb.toString();

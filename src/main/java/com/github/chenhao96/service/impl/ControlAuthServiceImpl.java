@@ -44,7 +44,7 @@ public class ControlAuthServiceImpl implements ControlAuthService {
         if (CollectionUtils.isEmpty(controlAuth)) return null;
         List<Integer> controlId = new ArrayList<>(controlAuth.size());
         for (ATControlAuth auth : controlAuth) {
-            if (ObjectUtils.nullSafeEquals(1, auth.getStatus())) {
+            if (ObjectUtils.nullSafeEquals(true, auth.getStatus())) {
                 controlId.add(auth.getControlId());
             }
         }
@@ -62,7 +62,7 @@ public class ControlAuthServiceImpl implements ControlAuthService {
         if (!CollectionUtils.isEmpty(controls)) {
             result = new LinkedList<>();
             for (ATControls control : controls) {
-                if (ObjectUtils.nullSafeEquals(control.getStatus(), true)) {
+                if (ObjectUtils.nullSafeEquals(true, control.getStatus())) {
                     AuthUrlControls authUrlControl = new AuthUrlControls();
                     BeanUtils.copyProperties(control, authUrlControl);
                     result.add(authUrlControl);

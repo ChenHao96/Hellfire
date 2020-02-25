@@ -17,9 +17,10 @@ CREATE TABLE `a_t_users` (
   KEY `status` (`status`) USING BTREE,
   KEY `logic` (`logic`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统账号信息';
+insert into a_t_users(`id`,`username`,`nick_name`,`phone_number`,`password`,`option_password`,`status`,`create_at`,`logic`)
+values(0,'','系统初始化','','','',0,0,1);
 insert into a_t_users(`id`,`username`,`nick_name`,`phone_number`,`password`,`option_password`,`status`,`create_at`)
 values(1,'steven','傻蛋','13112345678','293f6338b046d65e437b7ca39ba90136','293f6338b046d65e437b7ca39ba90136',1,0);
-
 
 CREATE TABLE `a_t_roles` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -48,6 +49,29 @@ CREATE TABLE `a_t_menus` (
   KEY `parent_id` (`parent_id`),
   KEY `status` (`status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统菜单信息';
+insert into a_t_menus(`id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(1,'控制台','console',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(2,1,'账号管理','account_manager',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(3,2,'添加账号','account_add',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(4,2,'账号查询','account_query',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(5,2,'账号修改','account_update',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(6,1,'角色管理','role_manager',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(7,6,'添加角色','role_add',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(8,6,'角色查询','role_query',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(9,6,'角色修改','role_update',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(10,1,'菜单管理','menu_manager',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(11,10,'添加菜单','menu_add',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(12,10,'菜单查询','menu_query',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(13,10,'菜单修改','menu_update',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(14,1,'权限管理','control_manager',4,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(15,14,'添加权限','control_add',1,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(16,14,'权限查询','control_query',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(17,14,'权限修改','control_update',3,0);
+-- insert into a_t_menus(`id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(18,'业务系统','business',2,0);
+-- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(19,18,'数据中心','data_center',1,0);
+-- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(20,18,'订单管理','order_manager',1,0);
+-- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(21,20,'添加订单','order_add',1,0);
+-- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(22,20,'订单查询','order_query',2,0);
+
 
 CREATE TABLE `a_t_controls` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -94,6 +118,28 @@ CREATE TABLE `a_t_menu_auth` (
   KEY `role_id` (`role_id`) USING BTREE,
   KEY `status` (`status`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用于存储系统菜单授权信息';
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,1,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,2,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,3,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,4,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,5,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,6,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,7,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,8,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,9,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,10,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,11,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,12,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,13,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,14,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,15,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,16,0);
+insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,17,0);
+-- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,18,0);
+-- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,19,0);
+-- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,20,0);
+-- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,21,0);
+-- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,22,0);
 
 CREATE TABLE `a_t_control_auth` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

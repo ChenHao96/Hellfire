@@ -26,7 +26,7 @@ public class RoleAuthServiceImpl implements RoleAuthService {
         if (CollectionUtils.isEmpty(roleAuth)) return null;
         List<Integer> roleId = new ArrayList<>(roleAuth.size());
         for (ATRoleAuth auth : roleAuth) {
-            if (ObjectUtils.nullSafeEquals(1, auth.getStatus())) {
+            if (ObjectUtils.nullSafeEquals(true, auth.getStatus())) {
                 roleId.add(auth.getRoleId());
             }
         }
