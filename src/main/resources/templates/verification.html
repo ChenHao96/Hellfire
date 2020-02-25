@@ -22,9 +22,11 @@
         </div>
         <hr class="hr15">
     </div>
-    <form th:if="${method} != null" class="layui-form" action="/verification" th:method="${method}" th:action="${requestUrl}">
+    <form class="layui-form" action="/verification" th:if="${method} != null"
+          th:method="${method}" th:action="${requestUrl}">
         <input type="hidden" name="is_v" value="true"/>
         <!--todo: 遍历参数 -->
+        <input type="hidden" th:each="item:${param}" th:name="${item.key}" th:value="${item.key}"/>
         <input name="v_code" placeholder="验证码" th:maxlength="${codeLength}" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
         <a class="vButton" href="javascript:;" clickUrl="/verification?v_type=email"

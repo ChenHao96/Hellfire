@@ -2,6 +2,7 @@ package com.github.chenhao96.controller.interceptor;
 
 import com.github.chenhao96.config.SpringWebSecurityConfig;
 import com.github.chenhao96.entity.vo.UsersLogin;
+import com.github.chenhao96.service.VerificationSendCodeService;
 import com.github.chenhao96.utils.DateTimeUtil;
 import com.github.chenhao96.utils.RandomCodeClass;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +48,9 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     @Value("${verification.device.codeLifeMilliseconds}")
     private long codeLifeMilliseconds;
 
+    @Resource
+    private VerificationSendCodeService verificationSendCodeService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (checkEnableDevice(request, response)) return true;
@@ -74,7 +79,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
 
     private void jump2VerificationPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //将请求参数带到验证页面
-        request.setAttribute("method", request.getMethod());
+        request.setAttribute("method",request.getMethod());
         request.setAttribute("params", request.getParameterMap());
         request.setAttribute("requestUrl", request.getRequestURI());
         //验证码的长度
@@ -85,12 +90,14 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     }
 
     private void sendVerificationCode(HttpServletRequest request) {
+
         //获取登录用户的信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UsersLogin usersLogin = (UsersLogin) authentication.getPrincipal();
+        String toAddress = usersLogin.getPhoneNumber();
+
         //判断验证码的发送方式
         String type = request.getParameter(VERIFICATION_TYPE_PARAM_KEY);
-        String toAddress = usersLogin.getPhoneNumber();
         if ("email".equals(type)) {
             if (StringUtils.isEmpty(usersLogin.getEmail())) {
                 type = "mobile";
@@ -179,12 +186,10 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     }
 
     private void doSendVerificationCode(String type, String toAddress, String code) {
-        //TODO:验证码发送
-        LOGGER.info("doSendVerificationCode code:{}", code);
         if ("email".equals(type)) {
-
+            verificationSendCodeService.deviceEmail(toAddress, code);
         } else {
-
+            verificationSendCodeService.deviceMobilePhone(toAddress, code);
         }
     }
 }

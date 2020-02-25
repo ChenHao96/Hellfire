@@ -3,13 +3,14 @@ package com.github.chenhao96.service;
 import com.github.chenhao96.BaseTest;
 import com.github.chenhao96.entity.bo.ATUserBo;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 
+import javax.annotation.Resource;
+
 public class UserServiceTest extends BaseTest {
 
-    @Autowired
+    @Resource
     private UserService userService;
 
     @Test

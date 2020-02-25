@@ -7,16 +7,17 @@ import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 @Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
+    @Resource
     private ATUserAdaptor atUserAdaptor;
 
     @Override

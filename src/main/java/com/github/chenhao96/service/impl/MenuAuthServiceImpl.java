@@ -1,9 +1,12 @@
 package com.github.chenhao96.service.impl;
 
+import com.github.chenhao96.adaptor.ATMenuAdaptor;
+import com.github.chenhao96.adaptor.ATMenuAuthAdaptor;
+import com.github.chenhao96.entity.po.ATMenuAuth;
 import com.github.chenhao96.entity.po.ATMenus;
 import com.github.chenhao96.entity.vo.AuthMenusTree;
-import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.MenuAuthService;
+import com.github.chenhao96.service.RoleAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.scheduling.annotation.Async;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.*;
 import java.util.concurrent.Future;
 
@@ -19,33 +23,39 @@ import java.util.concurrent.Future;
 @Service
 public class MenuAuthServiceImpl implements MenuAuthService {
 
+    @Resource
+    private ATMenuAdaptor atMenuAdaptor;
+
+    @Resource
+    private ATMenuAuthAdaptor atMenuAuthAdaptor;
+
+    @Resource
+    private RoleAuthService roleAuthService;
+
     @Override
     public List<ATMenus> findMenusByUserId(Integer userId) {
-        //TODO:
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (userId == null || userId < 1) return null;
+        List<Integer> roleId = roleAuthService.findUserRoleAuth(userId);
+        if (CollectionUtils.isEmpty(roleId)) return null;
+        List<ATMenuAuth> menuAuth = atMenuAuthAdaptor.findMenusByRoleId(roleId);
+        if (CollectionUtils.isEmpty(menuAuth)) return null;
+        List<Integer> menuId = new ArrayList<>(menuAuth.size());
+        for (ATMenuAuth auth : menuAuth) {
+            if (ObjectUtils.nullSafeEquals(1, auth.getStatus())) {
+                menuId.add(auth.getMenuId());
+            }
         }
-        return null;
+        return atMenuAdaptor.findMenusByIds(menuId);
     }
 
     @Async
     @Override
-    public Future<List<ATMenus>> queryMenusByUserId(Integer userId) {
-        return new AsyncResult<>(findMenusByUserId(userId));
+    public Future<List<AuthMenusTree>> queryMenuTreeByUser(Integer userId) {
+        return new AsyncResult<>(findMenuTreeByUserId(findMenusByUserId(userId)));
     }
 
-    @Async
-    @Override
-    public Future<Boolean> putMenuTreeByUser(UsersLogin user) {
-        user.setMenuTrees(findMenuTreeByUserId(user.getId()));
-        return new AsyncResult<>(true);
-    }
-
-    private List<AuthMenusTree> findMenuTreeByUserId(Integer userId) {
+    private List<AuthMenusTree> findMenuTreeByUserId(List<ATMenus> menus) {
         List<AuthMenusTree> result = Collections.emptyList();
-        List<ATMenus> menus = findMenusByUserId(userId);
         if (!CollectionUtils.isEmpty(menus)) {
             Map<Integer, List<AuthMenusTree>> cache = new HashMap<>(menus.size());
             for (ATMenus menu : menus) {

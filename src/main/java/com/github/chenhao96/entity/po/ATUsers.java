@@ -1,5 +1,6 @@
 package com.github.chenhao96.entity.po;
 
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
@@ -11,7 +12,7 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 @TableName("a_t_users")
-public class ATUsers extends BaseLogicTable {
+public class ATUsers extends BaseTable {
 
     private String username;
 
@@ -28,10 +29,10 @@ public class ATUsers extends BaseLogicTable {
     private UserStatusEnum status;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date expiredTime;
+
+    @TableLogic(value = "0", delval = "1")
+    private Boolean logic;
 
     @Override
     public String toString() {
@@ -46,7 +47,8 @@ public class ATUsers extends BaseLogicTable {
         if (optionPassword != null)
             sb.append(", optionPassword= [PROTECTED]");
         sb.append(", status=").append(status);
-        sb.append(", createTime=").append(createTime);
+        sb.append(", createAt=").append(getCreateAt());
+        sb.append(", createTime=").append(getCreateTime());
         sb.append(", expiredTime=").append(expiredTime);
         sb.append(", logic=").append(getLogic());
         sb.append('}');

@@ -2,7 +2,6 @@ package com.github.chenhao96.config;
 
 import com.github.chenhao96.config.security.SecurityAuthenticationHandler;
 import com.github.chenhao96.config.security.SecuritySessionInformationExpiredStrategy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +26,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
-    @Autowired
+    @Resource
     private SecurityAuthenticationHandler securityAuthenticationHandler;
 
     @Bean

@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("a_t_menus")
-public class ATMenus extends BaseLogicTable {
+public class ATMenus extends BaseStatusTable {
 
     private Integer parentId;
 
@@ -19,8 +19,6 @@ public class ATMenus extends BaseLogicTable {
 
     private String menuNo;
 
-    private Boolean status;
-
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ATMenus{");
@@ -30,8 +28,9 @@ public class ATMenus extends BaseLogicTable {
         sb.append(", menuName='").append(menuName).append('\'');
         sb.append(", menuIndex='").append(menuIndex).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');
-        sb.append(", status=").append(status);
-        sb.append(", logic=").append(getLogic());
+        sb.append(", status=").append(getStatus());
+        sb.append(", createAt=").append(getCreateAt());
+        sb.append(", createTime=").append(getCreateTime());
         sb.append('}');
         return sb.toString();
     }

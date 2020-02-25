@@ -7,7 +7,7 @@ import lombok.experimental.Accessors;
 @Data
 @Accessors(chain = true)
 @TableName("a_t_controls")
-public class ATControls extends BaseLogicTable {
+public class ATControls extends BaseStatusTable {
 
     private Integer menuId;
 
@@ -21,8 +21,6 @@ public class ATControls extends BaseLogicTable {
 
     private Boolean needPassword;
 
-    private Boolean status;
-
     private Boolean warringPrompt;
 
     @Override
@@ -35,9 +33,10 @@ public class ATControls extends BaseLogicTable {
         sb.append(", optionTag='").append(optionTag).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');
         sb.append(", needPassword=").append(needPassword);
-        sb.append(", status=").append(status);
         sb.append(", warringPrompt=").append(warringPrompt);
-        sb.append(", logic=").append(getLogic());
+        sb.append(", status=").append(getStatus());
+        sb.append(", createAt=").append(getCreateAt());
+        sb.append(", createTime=").append(getCreateTime());
         sb.append('}');
         return sb.toString();
     }

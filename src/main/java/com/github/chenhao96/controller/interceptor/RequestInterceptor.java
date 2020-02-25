@@ -1,8 +1,7 @@
 package com.github.chenhao96.controller.interceptor;
 
 import com.github.chenhao96.controller.AbstractController;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -12,10 +11,10 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 
+@Slf4j
 public class RequestInterceptor implements HandlerInterceptor {
 
     public static final String SERVLET_PATH_PARAMETER_NAME = "RequestInterceptor_servlet_path_key";
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestInterceptor.class);
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -24,7 +23,7 @@ public class RequestInterceptor implements HandlerInterceptor {
         request.setAttribute(AbstractController.CLIENT_IP_KEY, ip);
         String param = catalinaMap2String(request.getParameterMap());
         request.setAttribute(SERVLET_PATH_PARAMETER_NAME, requestUrl);
-        LOGGER.info("request address:{}:{},requestUrl:{},param:{}", ip, requestUrl, param);
+        log.info("request address:{}:{},requestUrl:{},param:{}", ip, requestUrl, param);
         return true;
     }
 
