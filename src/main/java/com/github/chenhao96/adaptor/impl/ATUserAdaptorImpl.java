@@ -20,4 +20,17 @@ public class ATUserAdaptorImpl implements ATUserAdaptor {
         queryWrapper.eq("username", username);
         return atUsersMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public boolean queryUsernameExist(String username) {
+        QueryWrapper<ATUsers> queryWrapper = new QueryWrapper<>();
+        queryWrapper.select("id");
+        queryWrapper.eq("username", username);
+        return atUsersMapper.selectCount(queryWrapper) > 0;
+    }
+
+    @Override
+    public boolean saveNewAtUser(ATUsers record) {
+        return atUsersMapper.insert(record) == 1;
+    }
 }

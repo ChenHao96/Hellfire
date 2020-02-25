@@ -4,8 +4,7 @@ import com.github.chenhao96.entity.po.ATMenus;
 import com.github.chenhao96.entity.vo.AuthMenusTree;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.MenuAuthService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
@@ -16,10 +15,9 @@ import org.springframework.util.ObjectUtils;
 import java.util.*;
 import java.util.concurrent.Future;
 
+@Slf4j
 @Service
 public class MenuAuthServiceImpl implements MenuAuthService {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MenuAuthServiceImpl.class);
 
     @Override
     public List<ATMenus> findMenusByUserId(Integer userId) {

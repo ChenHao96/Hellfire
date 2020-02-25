@@ -28,10 +28,6 @@ spring:
 
 mybatis-plus:
   typeEnumsPackage: com.github.chenhao96.entity.enums
-  global-config:
-    db-config:
-      logic-delete-value: 1
-      logic-not-delete-value: 0
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 

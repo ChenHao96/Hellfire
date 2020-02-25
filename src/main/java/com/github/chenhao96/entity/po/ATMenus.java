@@ -1,7 +1,11 @@
 package com.github.chenhao96.entity.po;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
+@Data
+@Accessors(chain = true)
 @TableName("a_t_menus")
 public class ATMenus extends BaseLogicTable {
 
@@ -16,54 +20,6 @@ public class ATMenus extends BaseLogicTable {
     private String menuNo;
 
     private Boolean status;
-
-    public Integer getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Integer parentId) {
-        this.parentId = parentId;
-    }
-
-    public String getMenuIcon() {
-        return menuIcon;
-    }
-
-    public void setMenuIcon(String menuIcon) {
-        this.menuIcon = menuIcon;
-    }
-
-    public String getMenuName() {
-        return menuName;
-    }
-
-    public void setMenuName(String menuName) {
-        this.menuName = menuName;
-    }
-
-    public String getMenuIndex() {
-        return menuIndex;
-    }
-
-    public void setMenuIndex(String menuIndex) {
-        this.menuIndex = menuIndex;
-    }
-
-    public String getMenuNo() {
-        return menuNo;
-    }
-
-    public void setMenuNo(String menuNo) {
-        this.menuNo = menuNo;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
 
     @Override
     public String toString() {

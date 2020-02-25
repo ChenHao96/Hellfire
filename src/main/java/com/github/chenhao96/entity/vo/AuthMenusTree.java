@@ -1,27 +1,15 @@
 package com.github.chenhao96.entity.vo;
 
 import com.github.chenhao96.entity.po.ATMenus;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class AuthMenusTree extends ATMenus {
 
     private List<AuthMenusTree> child;
     private List<AuthUrlControls> controls;
-
-    public List<AuthMenusTree> getChild() {
-        return child;
-    }
-
-    public void setChild(List<AuthMenusTree> child) {
-        this.child = child;
-    }
-
-    public List<AuthUrlControls> getControls() {
-        return controls;
-    }
-
-    public void setControls(List<AuthUrlControls> controls) {
-        this.controls = controls;
-    }
 }

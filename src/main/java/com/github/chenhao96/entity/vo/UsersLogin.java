@@ -2,33 +2,20 @@ package com.github.chenhao96.entity.vo;
 
 import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
+import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 
+@Data
+@Accessors(chain = true)
 public class UsersLogin extends ATUsers implements UserDetails {
 
     private List<AuthMenusTree> menuTrees;
 
     private Collection<AuthUrlControls> authorities;
-
-    @Override
-    public Collection<AuthUrlControls> getAuthorities() {
-        return this.authorities;
-    }
-
-    public void setAuthorities(Collection<AuthUrlControls> authorities) {
-        this.authorities = authorities;
-    }
-
-    public List<AuthMenusTree> getMenuTrees() {
-        return this.menuTrees;
-    }
-
-    public void setMenuTrees(List<AuthMenusTree> menuTrees) {
-        this.menuTrees = menuTrees;
-    }
 
     @Override
     public boolean isAccountNonExpired() {
