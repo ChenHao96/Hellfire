@@ -5,48 +5,28 @@
     <title>权限提示</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="stylesheet" href="../static/framework/layui/css/layui.css" th:href="@{/framework/layui/css/layui.css}" media="all"/>
     <link rel="stylesheet" href="../static/css/font.css" th:href="@{/css/font.css}"/>
-    <style>
-        .fly-panel {
-            margin-bottom: 15px;
-            border-radius: 2px;
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.05);
-        }
-        .fly-none {
-            min-height: 600px;
-            text-align: center;
-            padding-top: 50px;
-            color: #999;
-        }
-        .fly-none .layui-icon {
-            line-height: 300px;
-            font-size: 300px;
-            color: #393D49;
-        }
-        .fly-none p {
-            margin-top: 50px;
-            padding: 0 15px;
-            font-size: 32px;
-            color: #999;
-            font-weight: 300;
-        }
-        .layui-container{
-            margin-top: 10%;
-        }
-    </style>
+    <script th:src="@{/framework/jquery/jquery-3.4.1.min.js}" src="../static/framework/jquery/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../static/css/error.css" th:href="@{/css/error.css}"/>
 </head>
 <body>
-    <div class="layui-container">
-        <div class="fly-panel">
-            <div class="fly-none" th:switch="${errMsg != null}">
-                <h2><i class="layui-icon iconfont">&#xe82b;</i></h2>
-                <p th:case="true" th:text="${errMsg}"></p>
-                <p th:case="false">您的账号没有该链接的访问权限，如有异常请联系管理员处理！</p>
-            </div>
+<div class="layui-container">
+    <div class="fly-panel">
+        <div class="fly-none">
+            <h2><i class="layui-icon iconfont">&#xe82b;</i></h2>
+            <p></p>
         </div>
     </div>
+</div>
 </body>
+<script language='javascript' th:inline="javascript">
+    $(function () {
+            const errorMessage = /*[[${message}]]*/ "您的账号没有该链接的访问权限，如有异常请联系管理员处理！";
+            $(".layui-container .fly-none p").text(errorMessage);
+        }
+    );
+</script>
 </html>

@@ -14,7 +14,7 @@
 <body class="login-bg">
 <div class="login layui-anim layui-anim-up">
     <div class="message">登录验证</div>
-    <div id="darkbannerwrap"></div>
+    <div id="darkBannerWrap"></div>
     <div class="formMessageBox">
         <div>
             检查到您的使用存在风险,请填写验证码验证。<br/>
@@ -25,7 +25,6 @@
     <form class="layui-form" action="/verification" th:if="${method} != null"
           th:method="${method}" th:action="${requestUrl}">
         <input type="hidden" name="is_v" value="true"/>
-        <!--todo: 遍历参数 -->
         <input type="hidden" th:each="item:${param}" th:name="${item.key}" th:value="${item.key}"/>
         <input name="v_code" placeholder="验证码" th:maxlength="${codeLength}" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
@@ -39,7 +38,8 @@
     </form>
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
-<script>
+<script language='javascript' th:inline="javascript">
+// todo:页面全部改成js渲染
 $(function (){
     layui.use('form', function(){});
     $(".vButton").click(function(){

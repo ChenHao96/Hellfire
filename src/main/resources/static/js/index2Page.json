@@ -1,3 +1,8 @@
 {
-  "databases": "http://www.baidu.com"
+  "databases": "http://www.baidu.com",
+  "account_add": "https://tmall.com",
+  "account_query": "https://taobao.com",
+  "account_update": "http://qq.com",
+  "baseAccountInfo":"https://v.qq.com",
+  "securitySetting":"https://www.aliyun.com"
 }

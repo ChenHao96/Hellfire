@@ -6,10 +6,8 @@
     <meta name="renderer" content="webkit"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-    <link rel="stylesheet" href="../static/framework/layui/css/layui.css" th:href="@{/framework/layui/css/layui.css}"
-          media="all"/>
-    <script th:src="@{/framework/jquery/jquery-3.4.1.min.js}"
-            src="../static/framework/jquery/jquery-3.4.1.min.js"></script>
+    <link rel="stylesheet" href="../static/framework/layui/css/layui.css" th:href="@{/framework/layui/css/layui.css}" media="all"/>
+    <script th:src="@{/framework/jquery/jquery-3.4.1.min.js}" src="../static/framework/jquery/jquery-3.4.1.min.js"></script>
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -20,77 +18,37 @@
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header">
         <div class="layui-logo">管理系统</div>
-        <ul class="layui-nav layui-layout-left" lay-filter="navTab">
-<!--            <li class="layui-nav-item" th:if="${not #lists.isEmpty(#authentication.principal.menuTrees)}"-->
-<!--                th:each="first:${#authentication.principal.menuTrees}">-->
-<!--                <a href="javascript:;" th:taggle="${first.menuIndex}" th:text="${first.menuName}">-</a>-->
-<!--            </li>-->
-            <li class="layui-nav-item"><a href="javascript:;" taggle="consoleMenu">控制台</a></li>
-        </ul>
+        <ul class="layui-nav layui-layout-left tplTopMenu" lay-filter="navTab"></ul>
         <ul class="layui-nav layui-layout-right">
             <li class="layui-nav-item">
-                <a href="javascript:;" th:text="${#authentication.principal.nickName}">--未知--</a>
+                <a href="javascript:;" class="loginUserNickName"></a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;">基本资料</a></dd>
-                    <dd><a href="javascript:;">安全设置</a></dd>
+                    <dd><a href="javascript:;" class="layui-menu-button" id="baseAccountInfo">基本资料</a></dd>
+                    <dd><a href="javascript:;" class="layui-menu-button" id="securitySetting">安全设置</a></dd>
                 </dl>
             </li>
             <li class="layui-nav-item">
-                <a href="javascript:;" th:href="@{/logout}">安全退出</a>
+                <a href="login.html" th:href="@{/logout}">安全退出</a>
             </li>
         </ul>
     </div>
-    <div class="layui-side layui-bg-black">
-        <div class="layui-side-scroll">
-<!--            <ul class="layui-nav layui-nav-tree menuUlTab" th:id="${first.menuIndex}"-->
-<!--                th:if="${not #lists.isEmpty(#authentication.principal.menuTrees)}"-->
-<!--                th:each="first:${#authentication.principal.menuTrees}">-->
-<!--                <li class="layui-nav-item" th:if="${not #lists.isEmpty(first.child)}" th:each="second:${first.child}">-->
-<!--                    <a href="javascript:;" class="layui-menu-button" th:text="${second.menuName}" th:id="${second.menuIndex}">-</a>-->
-<!--                    <dl class="layui-nav-child" th:if="${not #lists.isEmpty(second.child)}">-->
-<!--                        <dd th:each="last:${second.child}">-->
-<!--                            <a href="javascript:;" class="layui-menu-button" th:text="${last.menuName}" th:id="${last.menuIndex}">-</a>-->
-<!--                        </dd>-->
-<!--                    </dl>-->
-<!--                </li>-->
-<!--            </ul>-->
-
-            <ul class="layui-nav layui-nav-tree menuUlTab" id="consoleMenu">
-                <li class="layui-nav-item">
-                    <a href="javascript:;" class="layui-menu-button" id="databases">数据库</a>
-                </li>
-                <li class="layui-nav-item">
-                    <a href="javascript:;" class="layui-menu-button">服务器管理</a>
-                    <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" class="layui-menu-button">服务器列表</a></dd>
-                        <dd><a href="javascript:;" class="layui-menu-button">添加服务器</a></dd>
-                        <dd><a href="javascript:;" class="layui-menu-button">服务器配置</a></dd>
-                    </dl>
-                </li>
-            </ul>
-        </div>
-    </div>
+    <div class="layui-side layui-bg-black"><div class="layui-side-scroll tplLeftMenu"></div></div>
     <div class="layui-body">
-        <div class="layui-tab tab" lay-allowclose="false">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
             <ul class="layui-tab-title tabFrame">
-                <li class="layui-this home"><i class="layui-icon">&#xe68e;</i>&nbsp;我的桌面</li>
-                <!--                <li>我的桌面2</li>-->
+                <li lay-id="home" class="layui-this home"><i class="layui-icon">&#xe68e;</i>&nbsp;我的桌面</li>
             </ul>
             <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
                 <dl>
-                    <dd data-type="this">关闭当前</dd>
                     <dd data-type="other">关闭其它</dd>
+                    <dd data-type="right">关闭右边</dd>
                     <dd data-type="all">关闭全部</dd>
                 </dl>
             </div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <!--TODO:修改欢迎页面-->
                     <h2>Hello World!</h2>
                 </div>
-                <!--                <div class="layui-tab-item">-->
-                <!--                    <iframe src='https://www.baidu.com' class="x-iframe" scrolling="auto"></iframe>-->
-                <!--                </div>-->
             </div>
             <div id="tab_show"></div>
         </div>
@@ -102,7 +60,25 @@
     </div>
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
-<script language='javascript' th:inline="javascript">const index2PageUrl = /*[[@{/js/index2Page.json}]]*/ "../static/js/index2Page.json";</script>
+<script id="topMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, item){}}<li class="layui-nav-item"><a href="javascript:;" taggle="{{item.menuIndex}}">{{item.menuName}}</a></li>{{#});}}</script>
+<script id="leftMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, first){}}<ul class="layui-nav layui-nav-tree menuUlTab" id="{{first.menuIndex}}">{{#layui.each(first.child, function(index, second){}}<li class="layui-nav-item"><a href="javascript:;" class="layui-menu-button" id="{{second.menuIndex}}">{{second.menuName}}</a>{{#if(second.child != null && second.child.length > 0){}}<dl class="layui-nav-child">{{#layui.each(second.child, function(index, last){}}<dd><a href="javascript:;" class="layui-menu-button" id="{{last.menuIndex}}">{{last.menuName}}</a></dd>{{#});}}</dl>{{#}}}</li>{{#});}}</ul>{{#});}}</script>
+<script language='javascript' th:inline="javascript">const index2PageUrl = /*[[@{/js/index2Page.json}]]*/ "../static/js/index2Page.json";
+const loginUser = {
+    nickName:/*[[${#authentication.principal.nickName}]]*/"--匿名--",
+    menuTrees:[
+        {menuName:"业务系统", menuIndex:"business",child:[
+            {menuName:"订单管理", menuIndex:"order_manager"}
+        ]},
+        {menuName:"控制台", menuIndex:"console", child:[
+            {menuName:"数据库", menuIndex:"databases"},
+            {menuName:"账号管理",menuIndex:"account_manager", child:[
+                {menuName:"添加账号", menuIndex:"account_add"},
+                {menuName:"账号查询", menuIndex:"account_query"},
+                {menuName:"账号修改", menuIndex:"account_update"}]
+            }]
+        }]
+};
+</script>
 <script th:src="@{/js/index.js}" src="../static/js/index.js"></script>
 </body>
 </html>

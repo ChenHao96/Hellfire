@@ -17,6 +17,5 @@ public class SecuritySessionInformationExpiredStrategy implements SessionInforma
         request.setAttribute("errMsg", "该账号已在其他设备登录，如有异常及时联系管理员!");
         request.getRequestDispatcher(SpringWebSecurityConfig.ERROR_URL_VALUE).forward(request, event.getResponse());
         SecurityContextHolder.clearContext();
-        request.getSession().invalidate();
     }
 }

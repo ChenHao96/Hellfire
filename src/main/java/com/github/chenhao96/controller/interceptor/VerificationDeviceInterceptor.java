@@ -73,7 +73,6 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
         //验证码不匹配或是验证码失效，重新登录
         request.getRequestDispatcher(SpringWebSecurityConfig.LOGIN_URL_VALUE).forward(request, response);
         SecurityContextHolder.clearContext();
-        request.getSession().invalidate();
         return false;
     }
 

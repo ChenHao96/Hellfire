@@ -17,11 +17,8 @@
 <body class="login-bg">
 <div class="login layui-anim layui-anim-up">
     <div class="message">系统登录</div>
-    <div id="darkbannerwrap"></div>
-    <div class="formMessageBox" th:if="${message} != null">
-        <div th:text="${message}">用户名或密码错误!</div>
-        <hr class="hr15">
-    </div>
+    <div id="darkBannerWrap"></div>
+    <div class="formMessageBox"><div></div><hr class="hr15"></div>
     <form method="post" class="layui-form" th:action="@{/login}">
         <input name="username" placeholder="用户名" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
@@ -34,21 +31,27 @@
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
 <script th:src="@{/framework/jquery/jquery.md5.js}" src="../static/framework/jquery/jquery.md5.js"></script>
-<script>
-    $(function (){
-        layui.use('form', function(){
-            var form = layui.form;
-            form.on('submit(login)', function(formData){
-                const hash = $.md5($("form input[type=password]").val()+"+");
+<script language='javascript' th:inline="javascript">
+    $(function () {
+        const hasError = /*[[${message} != null]]*/ true;
+        const errorMessage = /*[[${message}]]*/ "用户名或密码错误!";
+        if (hasError) {
+            $(".login .formMessageBox").show();
+            $(".login .formMessageBox div").text(errorMessage);
+        }
+        layui.use('form', function () {
+            const form = layui.form;
+            form.on('submit(login)', function (formData) {
+                const hash = $.md5($("form input[type=password]").val() + "+");
                 $("form input[name=password]").val(hash);
                 return true;
             });
         });
-        setTimeout(function(){
-            $(".login .formMessageBox").fadeOut('fast',function(){
+        setTimeout(function () {
+            $(".login .formMessageBox").fadeOut('fast', function () {
                 $(this).remove();
             });
-        },2500);
+        }, 2500);
     });
 </script>
 </body>
