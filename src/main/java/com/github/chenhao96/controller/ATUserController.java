@@ -2,7 +2,9 @@ package com.github.chenhao96.controller;
 
 import com.github.chenhao96.entity.bo.ATUserBo;
 import com.github.chenhao96.entity.bo.PageQuery;
+import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
+import com.github.chenhao96.entity.vo.BaseResult;
 import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -78,5 +80,27 @@ public class ATUserController extends AbstractController {
     @PreAuthorize("hasAuthority('sys:user:pageQuery')")
     public PageResult<ATUsers> pageQuery(PageQuery query) {
         return userService.pageQuery(query);
+    }
+
+    @GetMapping("/delete/{userId}")//JSON api
+    @PreAuthorize("hasAuthority('sys:user:delete')")
+    public BaseResult userDelete(@PathVariable Integer userId) {
+        BaseResult result = new BaseResult(-1, "删除失败！");
+        if (userId > 0 && userService.deleteUserAccount(userId)) {
+            result.setCode(0);
+            result.setMsg("账号删除成功！");
+        }
+        return result;
+    }
+
+    @GetMapping("/changeStatus/{userId}")//JSON api
+    @PreAuthorize("hasAuthority('sys:user:changeStatus')")
+    public BaseResult userStatusChange(@PathVariable Integer userId, UserStatusEnum status) {
+        BaseResult result = new BaseResult(-1, "修改失败！");
+        if (userId > 0 && userService.updateUserAccountStatus(userId, status)) {
+            result.setCode(0);
+            result.setMsg("状态修改成功！");
+        }
+        return result;
     }
 }

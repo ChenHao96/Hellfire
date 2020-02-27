@@ -7,11 +7,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class PageResult<D> {
-
-    private int code;
-
-    private String msg;
+public class PageResult<D> extends BaseResult {
 
     private int count;
 

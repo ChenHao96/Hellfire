@@ -2,6 +2,7 @@ package com.github.chenhao96.service;
 
 import com.github.chenhao96.entity.bo.ATUserBo;
 import com.github.chenhao96.entity.bo.PageQuery;
+import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.vo.PageResult;
 
@@ -18,4 +19,8 @@ public interface UserService {
     boolean saveUserAccount(ATUserBo atUserBo);
 
     PageResult<ATUsers> pageQuery(PageQuery query);
+
+    boolean deleteUserAccount(Integer userId);
+
+    boolean updateUserAccountStatus(Integer userId, UserStatusEnum status);
 }

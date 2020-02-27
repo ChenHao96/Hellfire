@@ -63,4 +63,16 @@ public class UserServiceImpl implements UserService {
         //TODO:
         return null;
     }
+
+    @Override
+    public boolean deleteUserAccount(Integer userId) {
+        //TODO:
+        return false;
+    }
+
+    @Override
+    public boolean updateUserAccountStatus(Integer userId, UserStatusEnum status) {
+        //TODO:
+        return false;
+    }
 }
