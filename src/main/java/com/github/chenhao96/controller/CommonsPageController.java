@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class CommonsController {
+public class CommonsPageController {
 
     @RequestMapping(SpringWebSecurityConfig.LOGIN_URL_VALUE)
     public String loginPage() {

@@ -53,24 +53,19 @@ insert into a_t_menus(`id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) value
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(2,1,'账号管理','account_manager',1,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(3,2,'添加账号','account_add',1,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(4,2,'账号查询','account_query',2,0);
-insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(5,2,'账号修改','account_update',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(5,2,'账号授权','account_auth',3,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(6,1,'角色管理','role_manager',2,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(7,6,'添加角色','role_add',1,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(8,6,'角色查询','role_query',2,0);
-insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(9,6,'角色修改','role_update',3,0);
+-- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(9,6,'角色修改','role_update',3,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(10,1,'菜单管理','menu_manager',3,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(11,10,'添加菜单','menu_add',1,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(12,10,'菜单查询','menu_query',2,0);
-insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(13,10,'菜单修改','menu_update',3,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(13,10,'角色关联菜单','menu_auth',3,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(14,1,'权限管理','control_manager',4,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(15,14,'添加权限','control_add',1,0);
 insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(16,14,'权限查询','control_query',2,0);
-insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(17,14,'权限修改','control_update',3,0);
--- insert into a_t_menus(`id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(18,'业务系统','business',2,0);
--- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(19,18,'数据中心','data_center',1,0);
--- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(20,18,'订单管理','order_manager',1,0);
--- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(21,20,'添加订单','order_add',1,0);
--- insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(22,20,'订单查询','order_query',2,0);
+insert into a_t_menus(`id`,`parent_id`,`menu_name`,`menu_index`,`menu_no`,`create_at`) values(17,14,'角色关联权限','control_auth',3,0);
 
 
 CREATE TABLE `a_t_controls` (
@@ -135,11 +130,6 @@ insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,14,0);
 insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,15,0);
 insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,16,0);
 insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,17,0);
--- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,18,0);
--- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,19,0);
--- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,20,0);
--- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,21,0);
--- insert into a_t_menu_auth(`role_id`,`menu_id`,`create_at`) values(1,22,0);
 
 CREATE TABLE `a_t_control_auth` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,

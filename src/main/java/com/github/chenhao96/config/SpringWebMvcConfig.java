@@ -28,8 +28,8 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
-        registry.addViewController(SpringWebSecurityConfig.ERROR_URL_VALUE).setViewName("error");
+        registry.addViewController("/").setViewName("/index");
+        registry.addViewController(SpringWebSecurityConfig.ERROR_URL_VALUE).setViewName("/error");
     }
 
     @Override

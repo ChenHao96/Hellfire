@@ -14,6 +14,6 @@
 </head>
 <body>
 <div class="layui-container"><div class="fly-panel"><div class="fly-none"><h2><i class="layui-icon iconfont">&#xe82b;</i></h2><p></p></div></div></div>
-<script language='javascript' th:inline="javascript">$(function () {$(".layui-container .fly-none p").text(/*[[${errMsg}]]*/ "您的账号没有该链接的访问权限，如有异常请联系管理员处理！");});</script>
+<script language='javascript' th:inline="javascript">$(function () {var errorMsg = "您的账号没有该链接的访问权限，如有异常请联系管理员处理！";const otherError = /*[[${errMsg} != null]]*/ false;if(otherError) errorMsg = /*[[${errMsg}]]*/ "";$(".layui-container .fly-none p").text(errorMsg);});</script>
 </body>
 </html>
