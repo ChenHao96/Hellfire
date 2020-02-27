@@ -47,7 +47,8 @@
             </div>
             <div class="layui-tab-content">
                 <div class="layui-tab-item layui-show">
-                    <h2>Hello World!</h2>
+                    <br/>
+                    <h2>&nbsp;Hello World!</h2>
                 </div>
             </div>
             <div id="tab_show"></div>
@@ -62,23 +63,7 @@
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
 <script id="topMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, item){}}<li class="layui-nav-item"><a href="javascript:;" taggle="{{item.menuIndex}}">{{item.menuName}}</a></li>{{#});}}</script>
 <script id="leftMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, first){}}<ul class="layui-nav layui-nav-tree menuUlTab" id="{{first.menuIndex}}">{{#layui.each(first.child, function(index, second){}}<li class="layui-nav-item"><a href="javascript:;" class="layui-menu-button" id="{{second.menuIndex}}">{{second.menuName}}</a>{{#if(second.child != null && second.child.length > 0){}}<dl class="layui-nav-child">{{#layui.each(second.child, function(index, last){}}<dd><a href="javascript:;" class="layui-menu-button" id="{{last.menuIndex}}">{{last.menuName}}</a></dd>{{#});}}</dl>{{#}}}</li>{{#});}}</ul>{{#});}}</script>
-<script language='javascript' th:inline="javascript">const index2PageUrl = /*[[@{/js/index2Page.json}]]*/ "../static/js/index2Page.json";
-const loginUser = {
-    nickName:/*[[${#authentication.principal.nickName}]]*/"--匿名--",
-    menuTrees:[
-        {menuName:"业务系统", menuIndex:"business",child:[
-            {menuName:"订单管理", menuIndex:"order_manager"}
-        ]},
-        {menuName:"控制台", menuIndex:"console", child:[
-            {menuName:"数据库", menuIndex:"databases"},
-            {menuName:"账号管理",menuIndex:"account_manager", child:[
-                {menuName:"添加账号", menuIndex:"account_add"},
-                {menuName:"账号查询", menuIndex:"account_query"},
-                {menuName:"账号修改", menuIndex:"account_update"}]
-            }]
-        }]
-};
-</script>
+<script language='javascript' th:inline="javascript">const index2PageUrl = /*[[@{/js/index2Page.json}]]*/ "../static/js/index2Page.json";const loginUser = {nickName:/*[[${#authentication.principal.nickName}]]*/"--匿名--", menuTrees:/*[[${#authentication.principal.menuTrees}]]*/[{menuName:"业务系统", menuIndex:"business", child:[{menuName:"订单管理", menuIndex:"order_manager"}]}, {menuName:"控制台", menuIndex:"console", child:[{menuName:"数据库", menuIndex:"databases"}]}]};</script>
 <script th:src="@{/js/index.js}" src="../static/js/index.js"></script>
 </body>
 </html>

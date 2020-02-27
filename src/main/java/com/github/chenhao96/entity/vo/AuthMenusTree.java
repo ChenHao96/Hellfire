@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @Accessors(chain = true)
 public class AuthMenusTree extends ATMenus {
+    //TODO:页面渲染的时候属性过多-是否不继承
 
     private List<AuthMenusTree> child;
     private List<AuthUrlControls> controls;

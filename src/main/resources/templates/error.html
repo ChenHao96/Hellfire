@@ -13,20 +13,7 @@
     <link rel="stylesheet" href="../static/css/error.css" th:href="@{/css/error.css}"/>
 </head>
 <body>
-<div class="layui-container">
-    <div class="fly-panel">
-        <div class="fly-none">
-            <h2><i class="layui-icon iconfont">&#xe82b;</i></h2>
-            <p></p>
-        </div>
-    </div>
-</div>
+<div class="layui-container"><div class="fly-panel"><div class="fly-none"><h2><i class="layui-icon iconfont">&#xe82b;</i></h2><p></p></div></div></div>
+<script language='javascript' th:inline="javascript">$(function () {$(".layui-container .fly-none p").text(/*[[${errMsg}]]*/ "您的账号没有该链接的访问权限，如有异常请联系管理员处理！");});</script>
 </body>
-<script language='javascript' th:inline="javascript">
-    $(function () {
-            const errorMessage = /*[[${message}]]*/ "您的账号没有该链接的访问权限，如有异常请联系管理员处理！";
-            $(".layui-container .fly-none p").text(errorMessage);
-        }
-    );
-</script>
 </html>

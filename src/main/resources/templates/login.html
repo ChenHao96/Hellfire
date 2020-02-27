@@ -13,13 +13,14 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <style>.login .formMessageBox{display: none;}</style>
 </head>
 <body class="login-bg">
 <div class="login layui-anim layui-anim-up">
     <div class="message">系统登录</div>
     <div id="darkBannerWrap"></div>
     <div class="formMessageBox"><div></div><hr class="hr15"></div>
-    <form method="post" class="layui-form" th:action="@{/login}">
+    <form method="post" class="layui-form" lay-filter="form_" th:action="@{/login}">
         <input name="username" placeholder="用户名" lay-verify="required" class="layui-input"/>
         <hr class="hr15">
         <input lay-verify="required" placeholder="密码" type="password" class="layui-input"/>
@@ -31,28 +32,7 @@
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
 <script th:src="@{/framework/jquery/jquery.md5.js}" src="../static/framework/jquery/jquery.md5.js"></script>
-<script language='javascript' th:inline="javascript">
-    $(function () {
-        const hasError = /*[[${message} != null]]*/ false;
-        const errorMessage = /*[[${message}]]*/ "用户名或密码错误!";
-        if (hasError) {
-            $(".login .formMessageBox").show();
-            $(".login .formMessageBox div").text(errorMessage);
-        }
-        layui.use('form', function () {
-            const form = layui.form;
-            form.on('submit(login)', function (formData) {
-                const hash = $.md5($("form input[type=password]").val() + "+");
-                $("form input[name=password]").val(hash);
-                return true;
-            });
-        });
-        setTimeout(function () {
-            $(".login .formMessageBox").fadeOut('fast', function () {
-                $(this).remove();
-            });
-        }, 2500);
-    });
-</script>
+<script language='javascript' th:inline="javascript">const hasError = /*[[${message} != null]]*/ false;const errorMessage = /*[[${message}]]*/ "用户名或密码错误!";</script>
+<script th:src="@{/js/login.js}" src="../static/js/login.js"></script>
 </body>
 </html>

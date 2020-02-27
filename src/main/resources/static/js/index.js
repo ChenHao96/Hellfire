@@ -69,7 +69,7 @@ layui.use(['element','laytpl','jquery'], function () {
 });
 $(function () {
     $(".loginUserNickName").text(loginUser.nickName);
-    $('#tab_right,.layui-layout-body,.x-iframe').on('click', function (event) {$('#tab_right').hide();$('#tab_show').hide();});
+    $('#tab_right,.layui-layout-body').on('click', function(){$('#tab_right').hide();$('#tab_show').hide();});
     $('#tab_right dd').click(function () {
         const data_type = $(this).attr("data-type");
         $(".tabFrame li.home").find("i.layui-tab-close").remove();
