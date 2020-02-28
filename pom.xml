@@ -17,6 +17,12 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <swagger.version>2.9.2</swagger.version>
+        <mysql.version>5.1.37</mysql.version>
+        <druid.version>1.1.21</druid.version>
+        <mybatis-plus.version>3.2.0</mybatis-plus.version>
+        <mybatis.version>2.1.1</mybatis.version>
+        <redisson.version>3.12.1</redisson.version>
     </properties>
 
     <dependencies>
@@ -24,7 +30,7 @@
         <!--        <dependency>-->
         <!--            <groupId>org.redisson</groupId>-->
         <!--            <artifactId>redisson-spring-boot-starter</artifactId>-->
-        <!--            <version>3.12.1</version>-->
+        <!--            <version>${redisson.version}</version>-->
         <!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>org.springframework.session</groupId>-->
@@ -34,6 +40,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
         <dependency>
@@ -52,24 +63,35 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.21</version>
+            <version>${druid.version}</version>
         </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.2.0</version>
+            <version>${mybatis-plus.version}</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>2.1.1</version>
+            <version>${mybatis.version}</version>
         </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger-ui</artifactId>-->
+<!--            <version>${swagger.version}</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>io.springfox</groupId>-->
+<!--            <artifactId>springfox-swagger2</artifactId>-->
+<!--            <version>${swagger.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.37</version>
+            <version>${mysql.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>

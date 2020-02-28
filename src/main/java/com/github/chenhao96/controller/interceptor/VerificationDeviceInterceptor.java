@@ -5,8 +5,6 @@ import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.VerificationSendCodeService;
 import com.github.chenhao96.utils.DateTimeUtil;
 import com.github.chenhao96.utils.RandomCodeClass;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -35,7 +33,6 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     private static final String VERIFICATION_DEVICE_LIFE_TIME_SESSION_KEY = "verification_device_life_time";
 
     private static final RandomCodeClass randomCodeClass = RandomCodeClass.getInstance();
-    private static final Logger LOGGER = LoggerFactory.getLogger(VerificationDeviceInterceptor.class);
 
     public static final String VERIFICATION_DEVICE_URL = "/verification";
 
