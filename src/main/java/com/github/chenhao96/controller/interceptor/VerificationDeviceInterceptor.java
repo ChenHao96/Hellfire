@@ -1,11 +1,15 @@
 package com.github.chenhao96.controller.interceptor;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.chenhao96.config.SpringWebSecurityConfig;
 import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.service.VerificationSendCodeService;
 import com.github.chenhao96.utils.DateTimeUtil;
+import com.github.chenhao96.utils.ErrorHandlerResponse;
 import com.github.chenhao96.utils.RandomCodeClass;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class VerificationDeviceInterceptor implements HandlerInterceptor {
@@ -45,6 +50,9 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     @Value("${verification.device.codeLifeMilliseconds}")
     private long codeLifeMilliseconds;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @Resource
     private VerificationSendCodeService verificationSendCodeService;
 
@@ -60,6 +68,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
                 jump2VerificationPage(request, response);
             } else {//发送验证码
                 sendVerificationCode(request);
+                response.setStatus(HttpStatus.NO_CONTENT.value());
             }
         }
         return false;
@@ -68,21 +77,37 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
     private boolean checkVerificationCode(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if (checkEnableCode(request, response)) return true;
         //验证码不匹配或是验证码失效，重新登录
-        request.getRequestDispatcher(SpringWebSecurityConfig.LOGIN_URL_VALUE).forward(request, response);
+        ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
+        errorHandlerResponse.setRequest(request);
+        errorHandlerResponse.setResponse(response);
+        errorHandlerResponse.setObjectMapper(objectMapper);
+        errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
+        errorHandlerResponse.setUrl(SpringWebSecurityConfig.LOGIN_URL_VALUE);
+        errorHandlerResponse.setMessage("验证码不正确，请重新登录！");
+        errorHandlerResponse.doResponse();
         SecurityContextHolder.clearContext();
         return false;
     }
 
     private void jump2VerificationPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Map<String, Object> attrs = new HashMap<>(5);
         //将请求参数带到验证页面
-        request.setAttribute("method",request.getMethod());
-        request.setAttribute("params", request.getParameterMap());
-        request.setAttribute("requestUrl", request.getRequestURI());
+        attrs.put("method", request.getMethod());
+        attrs.put("params", request.getParameterMap());
+        attrs.put("requestUrl", request.getRequestURI());
         //验证码的长度
-        request.setAttribute("codeLength", codeLength);
+        attrs.put("codeLength", codeLength);
         //验证码的有效时间
-        request.setAttribute("codeLifeTimeStr", DateTimeUtil.milliSecond2Str(codeLifeMilliseconds));
-        request.getRequestDispatcher(VERIFICATION_DEVICE_URL).forward(request, response);
+        attrs.put("codeLifeTimeStr", DateTimeUtil.milliSecond2Str(codeLifeMilliseconds));
+        ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
+        errorHandlerResponse.setData(attrs);
+        errorHandlerResponse.setRequest(request);
+        errorHandlerResponse.setResponse(response);
+        errorHandlerResponse.setObjectMapper(objectMapper);
+        errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
+        errorHandlerResponse.setUrl(VERIFICATION_DEVICE_URL);
+        errorHandlerResponse.setMessage("检查到您的使用存在风险,请填写验证码验证。");
+        errorHandlerResponse.doResponse();
     }
 
     private void sendVerificationCode(HttpServletRequest request) {
@@ -116,7 +141,6 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
                 writeEnableDevice(response);
                 return true;
             }
-            request.setAttribute("message", "验证码不正确，请重新登录！");
         }
         return false;
     }

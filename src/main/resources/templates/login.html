@@ -32,7 +32,7 @@
 </div>
 <script th:src="@{/framework/layui/layui.js}" charset="UTF-8" src="../static/framework/layui/layui.js"></script>
 <script th:src="@{/framework/jquery/jquery.md5.js}" src="../static/framework/jquery/jquery.md5.js"></script>
-<script language='javascript' th:inline="javascript">const hasError = /*[[${message} != null]]*/ false;const errorMessage = /*[[${message}]]*/ "用户名或密码错误!";</script>
+<script language='javascript' th:inline="javascript">const hasError = /*[[${errMsg} != null]]*/ false;const errorMessage = /*[[${errMsg}]]*/ "用户名或密码错误!";</script>
 <script th:src="@{/js/login.js}" src="../static/js/login.js"></script>
 </body>
 </html>

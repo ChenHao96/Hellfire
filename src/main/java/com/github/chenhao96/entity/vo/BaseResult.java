@@ -5,11 +5,13 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class BaseResult {
+public class BaseResult<D> {
 
     private int code;
 
     private String msg;
+
+    private D data;
 
     public BaseResult() {
     }

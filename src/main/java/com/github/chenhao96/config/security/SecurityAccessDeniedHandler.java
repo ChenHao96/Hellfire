@@ -5,28 +5,28 @@ import com.github.chenhao96.config.SpringWebSecurityConfig;
 import com.github.chenhao96.utils.ErrorHandlerResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.session.SessionInformationExpiredEvent;
-import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SecuritySessionInformationExpiredStrategy implements SessionInformationExpiredStrategy {
+public class SecurityAccessDeniedHandler implements AccessDeniedHandler {
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
-    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException, ServletException {
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
+        errorHandlerResponse.setRequest(request);
+        errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setObjectMapper(objectMapper);
-        errorHandlerResponse.setRequest(event.getRequest());
-        errorHandlerResponse.setResponse(event.getResponse());
         errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
         errorHandlerResponse.setUrl(SpringWebSecurityConfig.ERROR_URL_VALUE);
-        errorHandlerResponse.setMessage("该账号已在其他设备登录，如有异常及时联系管理员!");
+        errorHandlerResponse.setMessage("您的账号没有该链接的访问权限，如有异常请联系管理员处理！");
         errorHandlerResponse.doResponse();
-        SecurityContextHolder.clearContext();
     }
 }

@@ -7,9 +7,7 @@ import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class PageResult<D> extends BaseResult {
+public class PageResult<L> extends BaseResult<List<L>> {
 
     private int count;
-
-    private List<D> data;
 }

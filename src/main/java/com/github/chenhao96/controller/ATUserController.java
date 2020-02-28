@@ -7,6 +7,7 @@ import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.vo.BaseResult;
 import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,10 +85,10 @@ public class ATUserController extends AbstractController {
 
     @GetMapping("/delete/{userId}")//JSON api
     @PreAuthorize("hasAuthority('sys:user:delete')")
-    public BaseResult userDelete(@PathVariable Integer userId) {
-        BaseResult result = new BaseResult(-1, "删除失败！");
+    public BaseResult<?> userDelete(@PathVariable Integer userId) {
+        BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "删除失败！");
         if (userId > 0 && userService.deleteUserAccount(userId)) {
-            result.setCode(0);
+            result.setCode(HttpStatus.OK.value());
             result.setMsg("账号删除成功！");
         }
         return result;
@@ -95,10 +96,10 @@ public class ATUserController extends AbstractController {
 
     @GetMapping("/changeStatus/{userId}")//JSON api
     @PreAuthorize("hasAuthority('sys:user:changeStatus')")
-    public BaseResult userStatusChange(@PathVariable Integer userId, UserStatusEnum status) {
-        BaseResult result = new BaseResult(-1, "修改失败！");
+    public BaseResult<?> userStatusChange(@PathVariable Integer userId, UserStatusEnum status) {
+        BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "修改失败！");
         if (userId > 0 && userService.updateUserAccountStatus(userId, status)) {
-            result.setCode(0);
+            result.setCode(HttpStatus.OK.value());
             result.setMsg("状态修改成功！");
         }
         return result;

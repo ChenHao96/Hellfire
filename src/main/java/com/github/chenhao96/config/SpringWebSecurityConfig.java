@@ -1,5 +1,6 @@
 package com.github.chenhao96.config;
 
+import com.github.chenhao96.config.security.SecurityAccessDeniedHandler;
 import com.github.chenhao96.config.security.SecurityAuthenticationHandler;
 import com.github.chenhao96.config.security.SecuritySessionInformationExpiredStrategy;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
 import javax.annotation.Resource;
@@ -26,8 +29,10 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Resource
     private UserDetailsService userDetailsService;
 
-    @Resource
-    private SecurityAuthenticationHandler securityAuthenticationHandler;
+    @Bean
+    public AuthenticationFailureHandler securityAuthenticationHandler(){
+        return new SecurityAuthenticationHandler();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,6 +42,11 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public SessionInformationExpiredStrategy securitySessionInformationExpiredStrategy() {
         return new SecuritySessionInformationExpiredStrategy();
+    }
+
+    @Bean
+    public AccessDeniedHandler securityAccessDeniedHandler(){
+        return new SecurityAccessDeniedHandler();
     }
 
     @Override
@@ -55,10 +65,10 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers(IGNORE_PATTERNS).permitAll()
                 .anyRequest().authenticated().and()
-                .exceptionHandling().accessDeniedPage(ERROR_URL_VALUE);
+                .exceptionHandling().accessDeniedHandler(securityAccessDeniedHandler());
 
         http.formLogin().loginPage(LOGIN_URL_VALUE)
-                .failureHandler(securityAuthenticationHandler)
+                .failureHandler(securityAuthenticationHandler())
                 .and().logout().logoutUrl(LOGOUT_URL_VALUE)
                 .logoutSuccessUrl(LOGIN_URL_VALUE)
                 .deleteCookies("JSESSIONID", "SESSIONID", "SESSION")
