@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.session.SessionAuthenticationException;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -32,7 +31,7 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+                                        AuthenticationException exception) throws IOException {
 
         String message = "账号不可用!";
         if (exception instanceof BadCredentialsException) {
@@ -44,7 +43,10 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
         } else if (exception instanceof SessionAuthenticationException) {
             message = "该账号已在其他设备登录，如有异常及时联系管理员!";
         }
-
+        //TODO:多次登录失败
+        //1.删除设备验证
+        //2.短时间拒绝任何请求
+        //3.封禁IP
         log.warn("session:{}, AuthenticationException:{}", request.getSession().getId(), exception.getClass());
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
         errorHandlerResponse.setMessage(message);
@@ -57,13 +59,13 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                        Authentication auth) throws IOException, ServletException {
+                                        Authentication auth) throws IOException {
 
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
         Object principal = auth.getPrincipal();
         if (principal instanceof UsersLogin) {
+            Map<String, Object> data = new HashMap<>(2);
             UsersLogin usersLogin = (UsersLogin) principal;
-            Map<String, Object> data = new HashMap<>();
             data.put("nickName", usersLogin.getNickName());
             data.put("menuTrees", usersLogin.getMenuTrees());
             errorHandlerResponse.setData(data);

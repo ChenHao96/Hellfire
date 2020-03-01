@@ -95,7 +95,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setObjectMapper(objectMapper);
-        errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
+        errorHandlerResponse.setCode(HttpStatus.CONTINUE.value());
         errorHandlerResponse.setMessage("检查到您的使用存在风险,请填写验证码验证。");
         errorHandlerResponse.doResponse();
     }

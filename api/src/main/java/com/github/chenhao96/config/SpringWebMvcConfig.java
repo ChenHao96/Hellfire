@@ -33,7 +33,7 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
 
     @Bean
     @Primary
-    public ObjectMapper objectMapper(){
+    public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);

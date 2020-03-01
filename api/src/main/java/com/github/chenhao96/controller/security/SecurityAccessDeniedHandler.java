@@ -19,6 +19,10 @@ public class SecurityAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException, ServletException {
+        accessDenied(request, response, objectMapper);
+    }
+
+    public static void accessDenied(HttpServletRequest request, HttpServletResponse response, ObjectMapper objectMapper) throws IOException {
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);

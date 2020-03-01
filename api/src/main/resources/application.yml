@@ -6,17 +6,18 @@ server:
       timeout: 1200
 
 spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+  resources:
+    add-mappings: false
+
   application:
     version: 0.0.1
     name: Hellfire
 
   profiles:
     active: dev
-
-#  resources:
-#    add-mapping: false
-#  mvc:
-#    throw-exception-if-no-handler-found: true
 
   # redis Database Config
   redis:
