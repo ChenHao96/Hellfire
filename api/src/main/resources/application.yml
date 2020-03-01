@@ -1,0 +1,46 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /hellfire
+    session:
+      timeout: 1200
+
+spring:
+  application:
+    version: 0.0.1
+    name: Hellfire
+
+  profiles:
+    active: dev
+
+#  resources:
+#    add-mapping: false
+#  mvc:
+#    throw-exception-if-no-handler-found: true
+
+  # redis Database Config
+  redis:
+    host: 127.0.0.1
+    timeout: 3000
+
+  # DataSource Config
+  datasource:
+    platform: mysql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+
+mybatis-plus:
+  typeEnumsPackage: com.github.chenhao96.entity.enums
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+verification:
+  device:
+    codeLength: 6
+    #30天
+    lifeSeconds: 2592000
+    #5分钟
+    codeLifeMilliseconds: 300000

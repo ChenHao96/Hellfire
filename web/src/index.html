@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理系统</title>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <link rel="stylesheet" href="res/framework/layui/css/layui.css" media="all"/>
+    <link rel="stylesheet" href="res/css/index.css"/>
+    <script src="res/framework/jquery/jquery-3.4.1.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+    <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">管理系统</div>
+        <ul class="layui-nav layui-layout-left tplTopMenu" lay-filter="navTab"></ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;" class="loginUserNickName"></a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;" class="layui-menu-button" id="baseAccountInfo">基本资料</a></dd>
+                    <dd><a href="javascript:;" class="layui-menu-button" id="securitySetting">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">安全退出</a>
+            </li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black"><div class="layui-side-scroll tplLeftMenu"></div></div>
+    <div class="layui-body">
+        <div class="layui-tab tab" lay-filter="xbs_tab" lay-allowclose="false">
+            <ul class="layui-tab-title tabFrame">
+                <li lay-id="home" class="layui-this home"><i class="layui-icon">&#xe68e;</i>&nbsp;我的桌面</li>
+            </ul>
+            <div class="layui-unselect layui-form-select layui-form-selected" id="tab_right">
+                <dl>
+                    <dd data-type="other">关闭其它</dd>
+                    <dd data-type="right">关闭右边</dd>
+                    <dd data-type="all">关闭全部</dd>
+                </dl>
+            </div>
+            <div class="layui-tab-content">
+                <div class="layui-tab-item layui-show">
+                    <br/>
+                    <h2>&nbsp;Hello World!</h2>
+                </div>
+            </div>
+            <div id="tab_show"></div>
+        </div>
+    </div>
+    <div class="layui-footer">感谢&nbsp;<a href="https://www.layui.com/" target="_blank">&copy;Layui</a>,&nbsp;<a
+            href="https://www.echartsjs.com/zh/index.html" target="_blank">&copy;Echarts</a>,&nbsp;<a
+            href="https://jquery.com/" target="_blank">&copy;jQuery</a>,&nbsp;本系统由<a
+            href="https://github.com/ChenHao96/Hellfire" target="_blank">&copy;Hellfire</a>提供技术支持。
+    </div>
+</div>
+<script charset="UTF-8" src="res/framework/layui/layui.js"></script>
+<script id="topMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, item){}}<li class="layui-nav-item"><a href="javascript:;" taggle="{{item.menuIndex}}">{{item.menuName}}</a></li>{{#});}}</script>
+<script id="leftMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, first){}}<ul class="layui-nav layui-nav-tree menuUlTab" id="{{first.menuIndex}}">{{#layui.each(first.child, function(index, second){}}<li class="layui-nav-item"><a href="javascript:;" class="layui-menu-button" id="{{second.menuIndex}}">{{second.menuName}}</a>{{#if(second.child != null && second.child.length > 0){}}<dl class="layui-nav-child">{{#layui.each(second.child, function(index, last){}}<dd><a href="javascript:;" class="layui-menu-button" id="{{last.menuIndex}}">{{last.menuName}}</a></dd>{{#});}}</dl>{{#}}}</li>{{#});}}</ul>{{#});}}</script>
+<script>const index2PageUrl = "res/js/index2Page.json";const loginUser = {nickName:"--匿名--", menuTrees:[{menuName:"业务系统", menuIndex:"business", child:[{menuName:"订单管理", menuIndex:"order_manager"}]}, {menuName:"控制台", menuIndex:"console", child:[{menuName:"数据库", menuIndex:"databases"}]}]};</script>
+<script src="res/js/index.js"></script>
+</body>
+</html>
