@@ -18,7 +18,7 @@
     <div class="formMessageBox">
         <div>
             检查到您的使用存在风险,请填写验证码验证。<br/>
-            点击下方按钮获取验证码<br/>
+            点击下方按钮获取验证码。<br/>
             验证码默认发送到您的邮箱(邮箱未填写，将发送到手机)。<br/>
         </div>
         <hr class="hr15">
@@ -26,16 +26,15 @@
 </div>
 <script charset="UTF-8" src="res/framework/layui/layui.js"></script>
 <script id="verificationFormTpl" type="text/html">
-    <form class="layui-form" action="{{d.requestUrl}}" method="{{d.method}}" lay-filter="form_">
-        <input type="hidden" name="is_v" value="true"/>{{#layui.each(d.param, function(index, item){}}
-        <input type="hidden" name="{{item.key}}" value="{{item.value}}"/>{{#});}}
+    <form class="layui-form" lay-filter="form_">
+        <input type="hidden" name="is_v" value="true"/>
         <input name="v_code" placeholder="验证码" maxlength="{{d.codeLength}}" lay-verify="required" class="layui-input"/>
-        <hr class="hr15"><a class="vButton" href="javascript:;" clickUrl="{{d.requestUrl}}?v_type=email" title="验证码{{d.codeLifeTimeStr}}有效">邮箱验证码</a>
-        &nbsp;<a class="vButton" href="javascript:;" clickUrl="{{d.requestUrl}}?v_type=mobile" title="验证码{{d.codeLifeTimeStr}}有效">手机验证码</a>
+        <hr class="hr15"><a class="vButton" href="javascript:;" clickUrl="?v_type=email" title="验证码{{d.codeLifeTimeStr}}有效">邮箱验证码</a>
+        &nbsp;<a class="vButton" href="javascript:;" clickUrl="?v_type=mobile" title="验证码{{d.codeLifeTimeStr}}有效">手机验证码</a>
         <hr class="hr15"><input type="submit" lay-submit style="width:100%;" value="提交"/>
     </form>
 </script>
-<script>const formData = {method: "post", codeLength: 6, codeLifeTimeStr: "5分钟", requestUrl: "/verification", param: [{key:"aaa", value:"123"},{key:"bbb", value:"456"}]};</script>
+<script>const formData = {codeLength: 6, codeLifeTimeStr: "5分钟"};</script>
 <script src="res/js/verification.js"></script>
 </body>
 </html>
