@@ -55,7 +55,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
-                .antMatchers(LOGIN_URL_VALUE, LOGOUT_URL_VALUE)
+                .antMatchers(LOGIN_URL_VALUE, LOGOUT_URL_VALUE, "/favicon.ico")
                 .permitAll()
                 .anyRequest()
                 .authenticated()

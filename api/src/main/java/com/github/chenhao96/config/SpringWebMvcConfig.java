@@ -44,8 +44,10 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(verificationDeviceInterceptor()).addPathPatterns("/**");
+        registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/webjars/**","/swagger-resources/**","/swagger-ui.html");
+        registry.addInterceptor(verificationDeviceInterceptor()).addPathPatterns("/**")
+                .excludePathPatterns("/webjars/**","/swagger-resources/**","/swagger-ui.html");
     }
 
     @Override
@@ -57,7 +59,7 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/", "/static", "/public");
+                .addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
