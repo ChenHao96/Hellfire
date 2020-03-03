@@ -1,5 +1,6 @@
 package com.github.chenhao96.entity.bo;
 
+import com.github.chenhao96.entity.enums.UserStatusEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.springframework.util.StringUtils;
@@ -24,7 +25,7 @@ public class ATUserBo {
 
     private String optionPassword;
 
-    private Integer status;
+    private UserStatusEnum status;
 
     private Date expiredTime;
 

@@ -27,7 +27,7 @@ public class ATMenuController extends AbstractController {
     @GetMapping("/info/{menuId}")
     @ApiOperation(value = "系统菜单查询接口")
     @PreAuthorize("hasAuthority('sys:menu:info')")
-    @ApiImplicitParam(name = "menuId", value = "菜单id", required = true)
+    @ApiImplicitParam(name = "menuId", value = "菜单id", required = true, paramType = "Integer")
     public BaseResult<ATMenus> menuInfo(@PathVariable Integer menuId) {
         BaseResult<ATMenus> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "未找到对应信息!");
         if (menuId > 0) {
@@ -48,7 +48,7 @@ public class ATMenuController extends AbstractController {
             @ApiImplicitParam(name = "menuName", value = "菜单名称", required = true),
             @ApiImplicitParam(name = "menuIndex", value = "菜单索引", required = true),
             @ApiImplicitParam(name = "menuNo", value = "菜单序号", required = true),
-            @ApiImplicitParam(name = "status", value = "菜单状态", required = true)
+            @ApiImplicitParam(name = "status", value = "菜单状态", required = true, paramType = "Boolean")
     })
     public BaseResult<?> saveMenuInfo(ATMenuBo atMenuBo) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "保存失败!");
@@ -63,11 +63,11 @@ public class ATMenuController extends AbstractController {
     @ApiOperation(value = "系统菜单修改接口")
     @PreAuthorize("hasAuthority('sys:menu:update')")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单id", required = true),
+            @ApiImplicitParam(name = "id", value = "菜单id", required = true, paramType = "Integer"),
             @ApiImplicitParam(name = "menuName", value = "菜单名称"),
             @ApiImplicitParam(name = "menuIndex", value = "菜单索引"),
             @ApiImplicitParam(name = "menuNo", value = "菜单序号"),
-            @ApiImplicitParam(name = "status", value = "菜单状态")
+            @ApiImplicitParam(name = "status", value = "菜单状态", paramType = "Boolean")
     })
     public BaseResult<?> updateMenuInfo(ATMenuBo atMenuBo) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "修改失败!");
@@ -82,11 +82,11 @@ public class ATMenuController extends AbstractController {
     @ApiOperation(value = "系统菜单分页查询接口")
     @PreAuthorize("hasAuthority('sys:menu:pageQuery')")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "limit", value = "分页每页条数", required = true),
-            @ApiImplicitParam(name = "page", value = "当前页第一行行号", required = true),
-            @ApiImplicitParam(name = "ascCol", value = "升序字段集"),
-            @ApiImplicitParam(name = "descCol", value = "降序字段集"),
-            @ApiImplicitParam(name = "condition", value = "查询条件")
+            @ApiImplicitParam(name = "limit", value = "分页每页条数", required = true, paramType = "Integer"),
+            @ApiImplicitParam(name = "page", value = "当前页第一行行号", required = true, paramType = "Integer"),
+            @ApiImplicitParam(name = "ascCol", value = "升序字段集", paramType = "Set<String>"),
+            @ApiImplicitParam(name = "descCol", value = "降序字段集", paramType = "Set<String>"),
+            @ApiImplicitParam(name = "condition", value = "查询条件", paramType = "Map<String,Object>")
     })
     public PageResult<ATMenus> pageQuery(PageQuery query) {
         PageResult<ATMenus> result = new PageResult<>(HttpStatus.NO_CONTENT.value(), "查询无结果!");
@@ -102,7 +102,7 @@ public class ATMenuController extends AbstractController {
     @DeleteMapping("/delete/{menuId}")
     @ApiOperation(value = "系统菜单删除接口")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
-    @ApiImplicitParam(name = "menuId", value = "菜单id", required = true)
+    @ApiImplicitParam(name = "menuId", value = "菜单id", required = true, paramType = "Integer")
     public BaseResult<?> menuDelete(@PathVariable Integer menuId) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "删除失败!");
         if (menuId > 0 && atMenuService.deleteMenu(menuId)) {
@@ -116,8 +116,8 @@ public class ATMenuController extends AbstractController {
     @PostMapping("/changeStatus")
     @PreAuthorize("hasAuthority('sys:menu:changeStatus')")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "id", value = "菜单id", required = true),
-            @ApiImplicitParam(name = "status", value = "菜单状态", required = true)
+            @ApiImplicitParam(name = "id", value = "菜单id", required = true, paramType = "Integer"),
+            @ApiImplicitParam(name = "status", value = "菜单状态", required = true, paramType = "Boolean")
     })
     public BaseResult<?> menuStatusChange(ATMenuBo atMenuBo) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "状态修改失败!");

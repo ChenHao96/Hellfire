@@ -28,13 +28,11 @@ public class UserServiceImpl implements UserService {
     public boolean registerNewUser(ATUserBo user) {
         if (user == null || StringUtils.isEmpty(user.getUsername())) return false;
         if (!atUserAdaptor.queryUsernameExist(user.getUsername())) {
-
             ATUsers record = new ATUsers();
-            record.setStatus(UserStatusEnum.ENABLE);
-            if (user.getStatus() != null) {
-                record.setStatus(UserStatusEnum.fromCode(user.getStatus()));
-            }
             BeanUtils.copyProperties(user, record);
+            if(record.getStatus()==null){
+                record.setStatus(UserStatusEnum.ENABLE);
+            }
             if (StringUtils.isEmpty(record.getOptionPassword()))
                 record.setOptionPassword(record.getPassword());
             record.setId(null);
@@ -62,9 +60,6 @@ public class UserServiceImpl implements UserService {
         checkUserName(user);
         ATUsers record = new ATUsers();
         BeanUtils.copyProperties(user, record);
-        if (user.getStatus() != null) {
-            record.setStatus(UserStatusEnum.fromCode(user.getStatus()));
-        }
         if (!atUserAdaptor.updateAtUserInfo(record)) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
             return false;
@@ -101,7 +96,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean userAccountStatusChange(Integer userId, Integer status) {
+    public boolean userAccountStatusChange(Integer userId, UserStatusEnum status) {
         ATUserBo user = new ATUserBo();
         user.setId(userId);
         user.setStatus(status);
