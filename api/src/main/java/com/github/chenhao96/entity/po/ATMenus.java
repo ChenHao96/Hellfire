@@ -12,8 +12,6 @@ public class ATMenus extends BaseStatusTable {
 
     private Integer parentId;
 
-    private String menuIcon;
-
     private String menuName;
 
     private String menuIndex;
@@ -26,8 +24,6 @@ public class ATMenus extends BaseStatusTable {
         sb.append("id=").append(getId());
         if(!StringUtils.isEmpty(parentId))
             sb.append(", parentId=").append(parentId);
-        if(!StringUtils.isEmpty(menuIcon))
-            sb.append(", menuIcon='").append(menuIcon).append('\'');
         sb.append(", menuName='").append(menuName).append('\'');
         sb.append(", menuIndex='").append(menuIndex).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');

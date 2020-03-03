@@ -24,4 +24,10 @@ public class BaseResult<D> {
         this.code = code;
         this.msg = msg;
     }
+
+    public BaseResult(int code, String msg, D data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
 }

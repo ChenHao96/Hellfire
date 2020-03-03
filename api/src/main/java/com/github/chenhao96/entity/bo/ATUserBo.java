@@ -24,7 +24,7 @@ public class ATUserBo {
 
     private String optionPassword;
 
-    private int status;
+    private Integer status;
 
     private Date expiredTime;
 

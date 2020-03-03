@@ -38,7 +38,6 @@ insert into a_t_roles(id,role_name,role_tag,create_at) values(1,'系统管理员
 CREATE TABLE a_t_menus (
   id int(10) unsigned NOT NULL AUTO_INCREMENT,
   parent_id int(11) DEFAULT NULL COMMENT '上级菜单id',
-  menu_icon varchar(255) DEFAULT NULL COMMENT '菜单图标',
   menu_name varchar(255) NOT NULL COMMENT '菜单名称',
   menu_index varchar(255) NOT NULL COMMENT '菜单索引',
   menu_no int NOT NULL DEFAULT 0 COMMENT '菜单顺序',

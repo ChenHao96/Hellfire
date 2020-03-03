@@ -1,7 +1,7 @@
 package com.github.chenhao96.controller.interceptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chenhao96.entity.vo.UsersLogin;
+import com.github.chenhao96.entity.vo.AuthUserDetail;
 import com.github.chenhao96.service.VerificationSendCodeService;
 import com.github.chenhao96.utils.DateTimeUtil;
 import com.github.chenhao96.utils.ErrorHandlerResponse;
@@ -104,16 +104,16 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
 
         //获取登录用户的信息
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UsersLogin usersLogin = (UsersLogin) authentication.getPrincipal();
-        String toAddress = usersLogin.getPhoneNumber();
+        AuthUserDetail authUserDetail = (AuthUserDetail) authentication.getPrincipal();
+        String toAddress = authUserDetail.getPhoneNumber();
 
         //判断验证码的发送方式
         String type = request.getParameter(VERIFICATION_TYPE_PARAM_KEY);
         if ("email".equals(type)) {
-            if (StringUtils.isEmpty(usersLogin.getEmail())) {
+            if (StringUtils.isEmpty(authUserDetail.getEmail())) {
                 type = "mobile";
             } else {
-                toAddress = usersLogin.getEmail();
+                toAddress = authUserDetail.getEmail();
             }
         }
         String code = refreshVerificationCode(request.getSession());

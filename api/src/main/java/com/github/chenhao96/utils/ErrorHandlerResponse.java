@@ -9,7 +9,6 @@ import org.springframework.http.MediaType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Map;
 
 @Data
 @Accessors(chain = true)
@@ -25,11 +24,10 @@ public class ErrorHandlerResponse {
 
     private ObjectMapper objectMapper;
 
-    private Map<String, Object> data;
+    private Object data;
 
     public void doResponse() throws IOException {
-        BaseResult<Map<String, Object>> result = new BaseResult<>(code, message);
-        result.setData(data);
+        BaseResult<Object> result = new BaseResult<>(code, message, data);
         response.setCharacterEncoding(CommonsUtil.DEFAULT_ENCODING);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(objectMapper.writeValueAsString(result));

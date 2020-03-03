@@ -7,16 +7,17 @@ import lombok.experimental.Accessors;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
-import java.util.Collection;
 import java.util.List;
 
 @Data
 @Accessors(chain = true)
-public class UsersLogin extends ATUsers implements UserDetails {
+public class AuthUserDetail extends ATUsers implements UserDetails {
 
     private List<AuthMenusTree> menuTrees;
 
-    private Collection<AuthUrlControls> authorities;
+    private List<AuthUrlControls> authorities;
+
+    private LoginUserVo info;
 
     @Override
     public boolean isAccountNonExpired() {
@@ -70,6 +71,7 @@ public class UsersLogin extends ATUsers implements UserDetails {
         sb.append(", logic=").append(getLogic());
         sb.append(", menuTrees=").append(menuTrees);
         sb.append(", authorities=").append(authorities);
+        sb.append(", info=").append(info);
         sb.append('}');
         return sb.toString();
     }

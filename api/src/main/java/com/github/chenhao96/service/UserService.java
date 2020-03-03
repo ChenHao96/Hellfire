@@ -19,4 +19,6 @@ public interface UserService {
     boolean deleteUserAccount(Integer userId);
 
     boolean userAccountStatusChange(Integer userId, Integer status);
+
+    ATUsers queryByUsername(String username);
 }

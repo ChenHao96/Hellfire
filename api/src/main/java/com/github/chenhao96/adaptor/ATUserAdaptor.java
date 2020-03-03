@@ -9,4 +9,10 @@ public interface ATUserAdaptor {
     boolean queryUsernameExist(String username);
 
     boolean saveNewAtUser(ATUsers record);
+
+    boolean updateAtUserInfo(ATUsers record);
+
+    ATUsers queryUserAccountById(Integer userId);
+
+    boolean deleteUserAccount(Integer userId);
 }

@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
@@ -29,26 +30,56 @@ public class UserServiceImpl implements UserService {
         if (!atUserAdaptor.queryUsernameExist(user.getUsername())) {
 
             ATUsers record = new ATUsers();
-            record.setStatus(UserStatusEnum.fromCode(user.getStatus()));
+            record.setStatus(UserStatusEnum.ENABLE);
+            if (user.getStatus() != null) {
+                record.setStatus(UserStatusEnum.fromCode(user.getStatus()));
+            }
             BeanUtils.copyProperties(user, record);
             if (StringUtils.isEmpty(record.getOptionPassword()))
                 record.setOptionPassword(record.getPassword());
             record.setId(null);
-            return atUserAdaptor.saveNewAtUser(record);
+            if (!atUserAdaptor.saveNewAtUser(record)) {
+                TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                return false;
+            }
+            return true;
         }
         return false;
     }
 
     @Override
     public ATUsers queryUserAccountById(Integer userId) {
+        if (userId == null || userId < 1) return null;
+        ATUsers result = atUserAdaptor.queryUserAccountById(userId);
         //TODO:
-        return null;
+        return result;
     }
 
     @Override
-    public boolean saveUserAccount(ATUserBo atUserBo) {
-        //TODO:
-        return false;
+    @Transactional
+    public boolean saveUserAccount(ATUserBo user) {
+        if (user == null || user.getId() == null) return false;
+        checkUserName(user);
+        ATUsers record = new ATUsers();
+        BeanUtils.copyProperties(user, record);
+        if (user.getStatus() != null) {
+            record.setStatus(UserStatusEnum.fromCode(user.getStatus()));
+        }
+        if (!atUserAdaptor.updateAtUserInfo(record)) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return false;
+        }
+        return true;
+    }
+
+    private void checkUserName(ATUserBo user) {
+        String username = user.getUsername();
+        user.setUsername(null);
+        if (StringUtils.hasText(username)) {
+            if (!atUserAdaptor.queryUsernameExist(user.getUsername())) {
+                user.setUsername(username);
+            }
+        }
     }
 
     @Override
@@ -58,14 +89,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean deleteUserAccount(Integer userId) {
-        //TODO:
-        return false;
+        if (userId == null || userId < 1) return false;
+        if (!atUserAdaptor.deleteUserAccount(userId)) {
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return false;
+        }
+        return true;
     }
 
     @Override
+    @Transactional
     public boolean userAccountStatusChange(Integer userId, Integer status) {
-        //TODO:
-        return false;
+        ATUserBo user = new ATUserBo();
+        user.setId(userId);
+        user.setStatus(status);
+        return saveUserAccount(user);
+    }
+
+    @Override
+    public ATUsers queryByUsername(String username) {
+        if (StringUtils.isEmpty(username)) return null;
+        return atUserAdaptor.queryUserByUsername(username);
     }
 }

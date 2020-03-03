@@ -11,7 +11,7 @@ public class ATControls extends BaseStatusTable {
 
     private Integer menuId;
 
-    private String button_index;
+    private String buttonIndex;
 
     private String optionName;
 
@@ -28,7 +28,7 @@ public class ATControls extends BaseStatusTable {
         final StringBuilder sb = new StringBuilder("ATControls{");
         sb.append("id=").append(getId());
         sb.append(", menuId=").append(menuId);
-        sb.append(", button_index='").append(button_index).append('\'');
+        sb.append(", button_index='").append(buttonIndex).append('\'');
         sb.append(", optionName='").append(optionName).append('\'');
         sb.append(", optionTag='").append(optionTag).append('\'');
         sb.append(", menuNo='").append(menuNo).append('\'');

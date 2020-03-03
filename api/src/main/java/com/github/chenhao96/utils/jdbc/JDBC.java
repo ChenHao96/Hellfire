@@ -136,7 +136,7 @@ public class JDBC {
     public List<List<Map<String, Object>>> prepareCallQuery(String sql, CallableParam... params) {
 
         if (!successInit) throw new SqlJdbcException("JDBC is not init success.");
-        
+
         List<List<Map<String, Object>>> result = null;
         CallableStatement callableStatement = null;
 
@@ -167,7 +167,7 @@ public class JDBC {
 
         for (int i = 0; i < params.length; i++) {
             try {
-                params[i].returnValue = callableStatement.getObject(i + 1);
+                params[i].setReturnValue(callableStatement.getObject(i + 1));
             } catch (SQLException e) {
                 throw new SqlJdbcException(e);
             }
@@ -180,17 +180,17 @@ public class JDBC {
 
         if (params != null && params.length > 0) {
             for (int i = 0; i < params.length; i++) {
-                switch (params[i].isInOrOutAndInOut) {
+                switch (params[i].getIsInOrOutAndInOut()) {
 
                     case CallableParam.IN_PARAM:
-                        callableStatement.setObject(i + 1, params[i].value);
+                        callableStatement.setObject(i + 1, params[i].getValue());
                         break;
 
                     case CallableParam.IN_OUT_PARAM:
-                        callableStatement.setObject(i + 1, params[i].value);
+                        callableStatement.setObject(i + 1, params[i].getValue());
 
                     case CallableParam.OUT_PARAM:
-                        callableStatement.registerOutParameter(i + 1, params[i].type);
+                        callableStatement.registerOutParameter(i + 1, params[i].getType());
                         break;
                 }
             }

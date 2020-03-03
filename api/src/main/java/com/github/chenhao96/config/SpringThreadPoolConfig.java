@@ -18,8 +18,8 @@ public class SpringThreadPoolConfig {
     public TaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         // 设置核心线程数
-        executor.setCorePoolSize(8);
-        if (CommonsUtil.PROCESS_NUMBER >= 4) {
+        executor.setCorePoolSize(16);
+        if (CommonsUtil.PROCESS_NUMBER > 8) {
             executor.setCorePoolSize(CommonsUtil.PROCESS_NUMBER * 2);
         }
         // 设置最大线程数

@@ -5,11 +5,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public final class RandomCodeClass {
 
-    private char[] characterSet;
+    private final char[] characterSet;
 
-    private Random random = new Random();
+    private final Random random;
 
-    private ReentrantLock lock = new ReentrantLock();
+    private final ReentrantLock lock;
 
     private RandomCodeClass(CodeCharArray... characterSets) {
 
@@ -37,6 +37,8 @@ public final class RandomCodeClass {
         }
 
         this.characterSet = tmp;
+        this.random = new Random();
+        this.lock = new ReentrantLock();
     }
 
     private RandomCodeClass(char[] characterSets) {
@@ -46,6 +48,8 @@ public final class RandomCodeClass {
         char[] tmp = new char[characterSets.length];
         System.arraycopy(characterSets, 0, tmp, 0, characterSets.length);
         this.characterSet = tmp;
+        this.random = new Random();
+        this.lock = new ReentrantLock();
     }
 
     public static RandomCodeClass getInstance(CodeCharArray... codeChars) {

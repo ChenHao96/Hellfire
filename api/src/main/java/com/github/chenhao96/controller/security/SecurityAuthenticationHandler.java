@@ -1,7 +1,6 @@
 package com.github.chenhao96.controller.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.chenhao96.entity.vo.UsersLogin;
 import com.github.chenhao96.utils.ErrorHandlerResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,6 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 @Slf4j
 @Component
@@ -62,14 +59,6 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
                                         Authentication auth) throws IOException {
 
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
-        Object principal = auth.getPrincipal();
-        if (principal instanceof UsersLogin) {
-            Map<String, Object> data = new HashMap<>(2);
-            UsersLogin usersLogin = (UsersLogin) principal;
-            data.put("nickName", usersLogin.getNickName());
-            data.put("menuTrees", usersLogin.getMenuTrees());
-            errorHandlerResponse.setData(data);
-        }
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setMessage("登录成功!");

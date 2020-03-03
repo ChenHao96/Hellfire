@@ -8,7 +8,7 @@
 
 :::::::::::::::::::::::::::::::::::::::::::::::::::
 ::${spring.application.name}::       ${spring.application.version}
-::Spring Boot::  ${spring-boot.formatted-version}              ::
+::Spring Boot::  ${spring-boot.formatted-version}               ::
 author: StevenChen
 email: 949727157@qq.com
 about me: https://github.com/ChenHao96
