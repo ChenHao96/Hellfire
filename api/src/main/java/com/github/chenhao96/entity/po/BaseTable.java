@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 @Data
 @Accessors(chain = true)
@@ -19,5 +19,5 @@ public abstract class BaseTable implements Serializable {
     private Integer createAt;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp createTime;
+    private Date createTime;
 }

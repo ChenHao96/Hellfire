@@ -29,6 +29,14 @@ public class ATUserBo {
 
     private Date expiredTime;
 
+    public ATUserBo() {
+    }
+
+    public ATUserBo(Integer id, UserStatusEnum status) {
+        this.id = id;
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("ATUserBo{");

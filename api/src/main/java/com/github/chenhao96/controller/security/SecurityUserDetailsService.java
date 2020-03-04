@@ -3,9 +3,9 @@ package com.github.chenhao96.controller.security;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.vo.*;
+import com.github.chenhao96.service.ATUserService;
 import com.github.chenhao96.service.ControlAuthService;
 import com.github.chenhao96.service.MenuAuthService;
-import com.github.chenhao96.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,7 +25,7 @@ import java.util.concurrent.Future;
 public class SecurityUserDetailsService implements UserDetailsService {
 
     @Resource
-    private UserService userService;
+    private ATUserService atUserService;
 
     @Resource
     private MenuAuthService menuAuthService;
@@ -40,7 +40,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         long startTime = System.currentTimeMillis();
-        ATUsers atUsers = userService.queryByUsername(username);
+        ATUsers atUsers = atUserService.queryByUsername(username);
         if (atUsers == null) {
             throw new UsernameNotFoundException("用户账号不存在!");
         }

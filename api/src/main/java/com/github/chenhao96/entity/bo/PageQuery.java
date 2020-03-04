@@ -3,7 +3,6 @@ package com.github.chenhao96.entity.bo;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -14,20 +13,17 @@ public class PageQuery {
 
     private Integer page;
 
-    private Set<String> ascCol;
+    private Set<PageOrder> orders;
 
-    private Set<String> descCol;
-
-    private Map<String, Object> condition;
+    private Set<PageCondition> conditions;
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("PageQuery{");
         sb.append("limit=").append(limit);
         sb.append(", page=").append(page);
-        sb.append(", ascCol=").append(ascCol);
-        sb.append(", descCol=").append(descCol);
-        sb.append(", condition=").append(condition);
+        sb.append(", orders=").append(orders);
+        sb.append(", conditions=").append(conditions);
         sb.append('}');
         return sb.toString();
     }

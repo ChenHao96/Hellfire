@@ -4,17 +4,19 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 @Data
 @Accessors(chain = true)
-public class BaseResult<D> {
+public class BaseResult<D> implements Serializable {
 
-    @ApiModelProperty(name = "code", value = "请求响应码", required = true, example = "200")
+    @ApiModelProperty(value = "请求响应码", required = true, example = "200")
     private int code;
 
-    @ApiModelProperty(name = "msg", value = "请求响应信息", required = true)
+    @ApiModelProperty(value = "请求响应信息", required = true)
     private String msg;
 
-    @ApiModelProperty(name = "data", value = "请求响应内容")
+    @ApiModelProperty(value = "请求响应内容")
     private D data;
 
     public BaseResult() {

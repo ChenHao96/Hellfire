@@ -2,17 +2,9 @@ package com.github.chenhao96.adaptor;
 
 import com.github.chenhao96.entity.po.ATUsers;
 
-public interface ATUserAdaptor {
+public interface ATUserAdaptor extends BaseAdaptor<ATUsers> {
 
     ATUsers queryUserByUsername(String username);
 
-    boolean queryUsernameExist(String username);
-
-    boolean saveNewAtUser(ATUsers record);
-
-    boolean updateAtUserInfo(ATUsers record);
-
-    ATUsers queryUserAccountById(Integer userId);
-
-    boolean deleteUserAccount(Integer userId);
+    boolean queryUsernameNotExist(String username);
 }

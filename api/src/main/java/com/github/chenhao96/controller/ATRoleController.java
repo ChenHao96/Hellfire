@@ -6,17 +6,18 @@ import com.github.chenhao96.entity.po.ATRoles;
 import com.github.chenhao96.entity.vo.BaseResult;
 import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.ATRoleService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.Map;
 
+@Api("系统角色")
 @RestController
 @RequestMapping("/role")
 public class ATRoleController extends AbstractController {
@@ -24,19 +25,17 @@ public class ATRoleController extends AbstractController {
     @Resource
     private ATRoleService atRoleService;
 
-    @GetMapping("/info/{roleId}")
+    @GetMapping("/info/{id}")
     @ApiOperation(value = "系统角色查询接口")
     @PreAuthorize("hasAuthority('sys:role:info')")
-    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, paramType = "Integer")
-    public BaseResult<ATRoles> roleInfo(@PathVariable Integer roleId) {
+    @ApiImplicitParam(name = "id", value = "角色id", required = true, paramType = "Integer")
+    public BaseResult<ATRoles> roleInfo(@PathVariable Integer id) {
         BaseResult<ATRoles> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "未找到对应信息!");
-        if (roleId > 0) {
-            ATRoles role = atRoleService.queryRoleById(roleId);
-            if (role != null) {
-                result.setData(role);
-                result.setMsg("操作成功!");
-                result.setCode(HttpStatus.OK.value());
-            }
+        ATRoles role = atRoleService.queryRoleById(id);
+        if (role != null) {
+            result.setData(role);
+            result.setMsg("操作成功!");
+            result.setCode(HttpStatus.OK.value());
         }
         return result;
     }
@@ -45,8 +44,8 @@ public class ATRoleController extends AbstractController {
     @ApiOperation(value = "系统角色添加接口")
     @PreAuthorize("hasAuthority('sys:role:save')")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "roleName", value = "角色名称", required = true),
-            @ApiImplicitParam(name = "roleTag", value = "角色标签", required = true),
+            @ApiImplicitParam(name = "roleName", value = "角色名称", required = true, paramType = "String"),
+            @ApiImplicitParam(name = "roleTag", value = "角色标签", required = true, paramType = "String"),
             @ApiImplicitParam(name = "status", value = "角色状态", required = true, paramType = "Boolean")
     })
     public BaseResult<?> saveRoleInfo(ATRoleBo atRoleBo) {
@@ -63,8 +62,8 @@ public class ATRoleController extends AbstractController {
     @PreAuthorize("hasAuthority('sys:role:update')")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "角色id", required = true, paramType = "Integer"),
-            @ApiImplicitParam(name = "roleName", value = "角色名称"),
-            @ApiImplicitParam(name = "roleTag", value = "角色标签"),
+            @ApiImplicitParam(name = "roleName", value = "角色名称", paramType = "String"),
+            @ApiImplicitParam(name = "roleTag", value = "角色标签", paramType = "String"),
             @ApiImplicitParam(name = "status", value = "角色状态", paramType = "Boolean")
     })
     public BaseResult<?> updateRoleInfo(ATRoleBo atRoleBo) {
@@ -79,31 +78,24 @@ public class ATRoleController extends AbstractController {
     @PostMapping("/pageQuery")
     @ApiOperation(value = "系统角色分页查询接口")
     @PreAuthorize("hasAuthority('sys:role:pageQuery')")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "limit", value = "分页每页条数", required = true, paramType = "Integer"),
-            @ApiImplicitParam(name = "page", value = "当前页第一行行号", required = true, paramType = "Integer"),
-            @ApiImplicitParam(name = "ascCol", value = "升序字段集", paramType = "Set<String>"),
-            @ApiImplicitParam(name = "descCol", value = "降序字段集", paramType = "Set<String>"),
-            @ApiImplicitParam(name = "condition", value = "查询条件", paramType = "Map<String,Object>")
-    })
-    public PageResult<ATRoles> pageQuery(PageQuery query) {
-        PageResult<ATRoles> result = new PageResult<>(HttpStatus.NO_CONTENT.value(), "查询无结果!");
-        List<ATRoles> list = atRoleService.pageQuery(query);
-        if (!CollectionUtils.isEmpty(list)) {
-            result.setData(list);
+    public BaseResult<PageResult<ATRoles>> rolePageQuery(PageQuery query, @RequestParam Map<String, Object> condition) {
+        BaseResult<PageResult<ATRoles>> result = new BaseResult<>(HttpStatus.NO_CONTENT.value(), "查询无结果!");
+        PageResult<ATRoles> page = atRoleService.pageQuery(query);
+        if (page != null) {
+            result.setData(page);
             result.setMsg("操作成功!");
             result.setCode(HttpStatus.OK.value());
         }
         return result;
     }
 
-    @DeleteMapping("/delete/{roleId}")
+    @DeleteMapping("/delete/{id}")
     @ApiOperation(value = "系统角色删除接口")
     @PreAuthorize("hasAuthority('sys:role:delete')")
-    @ApiImplicitParam(name = "roleId", value = "角色id", required = true, paramType = "Integer")
-    public BaseResult<?> roleDelete(@PathVariable Integer roleId) {
+    @ApiImplicitParam(name = "id", value = "角色id", required = true, paramType = "Integer")
+    public BaseResult<?> roleDelete(@PathVariable Integer id) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "删除失败!");
-        if (roleId > 0 && atRoleService.deleteRole(roleId)) {
+        if (atRoleService.deleteRole(id)) {
             result.setCode(HttpStatus.OK.value());
             result.setMsg("操作成功!");
         }
@@ -117,9 +109,9 @@ public class ATRoleController extends AbstractController {
             @ApiImplicitParam(name = "id", value = "角色id", required = true, paramType = "Integer"),
             @ApiImplicitParam(name = "status", value = "角色状态", required = true, paramType = "Boolean")
     })
-    public BaseResult<?> roleStatusChange(ATRoleBo atRoleBo) {
+    public BaseResult<?> roleStatusChange(Integer id, Boolean status) {
         BaseResult<?> result = new BaseResult<>(HttpStatus.ACCEPTED.value(), "状态修改失败!");
-        if (atRoleBo.getId() > 0 && atRoleService.roleStatusChange(atRoleBo.getId(), atRoleBo.getStatus())) {
+        if (atRoleService.roleStatusChange(id, status)) {
             result.setCode(HttpStatus.OK.value());
             result.setMsg("操作成功!");
         }
