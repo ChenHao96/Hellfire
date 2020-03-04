@@ -3,10 +3,9 @@ package com.github.chenhao96.service.impl;
 import com.github.chenhao96.entity.bo.ATRoleBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATRoles;
+import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.ATRoleService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ATRoleServiceImpl implements ATRoleService {
@@ -22,7 +21,7 @@ public class ATRoleServiceImpl implements ATRoleService {
     }
 
     @Override
-    public List<ATRoles> pageQuery(PageQuery query) {
+    public PageResult<ATRoles> pageQuery(PageQuery query) {
         return null;
     }
 

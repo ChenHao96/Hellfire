@@ -3,8 +3,7 @@ package com.github.chenhao96.service;
 import com.github.chenhao96.entity.bo.ATRoleBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATRoles;
-
-import java.util.List;
+import com.github.chenhao96.entity.vo.PageResult;
 
 public interface ATRoleService {
 
@@ -12,7 +11,7 @@ public interface ATRoleService {
 
     boolean deleteRole(Integer roleId);
 
-    List<ATRoles> pageQuery(PageQuery query);
+    PageResult<ATRoles> pageQuery(PageQuery query);
 
     boolean saveRoleInfo(ATRoleBo atRoleBo);
 

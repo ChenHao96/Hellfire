@@ -1,5 +1,6 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.annotation.SystemAdminOption;
 import com.github.chenhao96.entity.bo.ATControlBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATControls;
@@ -38,6 +39,7 @@ public class ATControlController extends AbstractController {
         return result;
     }
 
+    @SystemAdminOption
     @PostMapping("/save")
     @ApiOperation(value = "系统权限添加接口")
     @PreAuthorize("hasAuthority('sys:control:save')")

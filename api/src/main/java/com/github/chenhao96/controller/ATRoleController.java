@@ -1,12 +1,12 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.annotation.SystemAdminOption;
 import com.github.chenhao96.entity.bo.ATRoleBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATRoles;
 import com.github.chenhao96.entity.vo.BaseResult;
 import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.ATRoleService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.util.Map;
 
-@Api("系统角色")
 @RestController
 @RequestMapping("/role")
 public class ATRoleController extends AbstractController {
@@ -40,6 +39,7 @@ public class ATRoleController extends AbstractController {
         return result;
     }
 
+    @SystemAdminOption
     @PostMapping("/save")
     @ApiOperation(value = "系统角色添加接口")
     @PreAuthorize("hasAuthority('sys:role:save')")

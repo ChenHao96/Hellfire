@@ -3,10 +3,9 @@ package com.github.chenhao96.service.impl;
 import com.github.chenhao96.entity.bo.ATControlBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATControls;
+import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.ATControlService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ATControlServiceImpl implements ATControlService {
@@ -27,7 +26,7 @@ public class ATControlServiceImpl implements ATControlService {
     }
 
     @Override
-    public List<ATControls> pageQuery(PageQuery query) {
+    public PageResult<ATControls> pageQuery(PageQuery query) {
         return null;
     }
 

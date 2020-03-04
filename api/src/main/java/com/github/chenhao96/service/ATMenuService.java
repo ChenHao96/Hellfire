@@ -3,13 +3,12 @@ package com.github.chenhao96.service;
 import com.github.chenhao96.entity.bo.ATMenuBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATMenus;
-
-import java.util.List;
+import com.github.chenhao96.entity.vo.PageResult;
 
 public interface ATMenuService {
     ATMenus queryMenuById(Integer menuId);
 
-    List<ATMenus> pageQuery(PageQuery query);
+    PageResult<ATMenus> pageQuery(PageQuery query);
 
     boolean deleteMenu(Integer menuId);
 

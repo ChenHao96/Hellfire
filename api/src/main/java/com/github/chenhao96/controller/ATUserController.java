@@ -1,5 +1,6 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.annotation.SystemAdminOption;
 import com.github.chenhao96.entity.bo.ATUserBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.enums.UserStatusEnum;
@@ -39,6 +40,7 @@ public class ATUserController extends AbstractController {
         return result;
     }
 
+    @SystemAdminOption
     @PostMapping("/save")
     @ApiOperation(value = "系统账号添加接口")
     @PreAuthorize("hasAuthority('sys:user:save')")

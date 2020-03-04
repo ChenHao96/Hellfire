@@ -3,10 +3,9 @@ package com.github.chenhao96.service.impl;
 import com.github.chenhao96.entity.bo.ATMenuBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATMenus;
+import com.github.chenhao96.entity.vo.PageResult;
 import com.github.chenhao96.service.ATMenuService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class ATMenuServiceImpl implements ATMenuService {
@@ -17,7 +16,7 @@ public class ATMenuServiceImpl implements ATMenuService {
     }
 
     @Override
-    public List<ATMenus> pageQuery(PageQuery query) {
+    public PageResult<ATMenus> pageQuery(PageQuery query) {
         return null;
     }
 

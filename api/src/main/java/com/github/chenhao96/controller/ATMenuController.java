@@ -1,5 +1,6 @@
 package com.github.chenhao96.controller;
 
+import com.github.chenhao96.annotation.SystemAdminOption;
 import com.github.chenhao96.entity.bo.ATMenuBo;
 import com.github.chenhao96.entity.bo.PageQuery;
 import com.github.chenhao96.entity.po.ATMenus;
@@ -38,6 +39,7 @@ public class ATMenuController extends AbstractController {
         return result;
     }
 
+    @SystemAdminOption
     @PostMapping("/save")
     @ApiOperation(value = "系统菜单添加接口")
     @PreAuthorize("hasAuthority('sys:menu:save')")
