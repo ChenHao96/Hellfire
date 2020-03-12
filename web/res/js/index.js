@@ -48,6 +48,13 @@ layui.use(['element','laytpl','jquery'], function () {
             }
         });
     });
+    $(".logout-button").click(function(){
+        $.getJSON("",{},function(data){
+            if(data.code === 200){
+                window.location.href="login.html";
+            }
+        });
+    });
     function layuiTabAdd(id, title, url) {
         const opened = $(".layui-tab-title li[lay-id=home]").nextAll();
         if (opened != null && opened.length > 0) {
