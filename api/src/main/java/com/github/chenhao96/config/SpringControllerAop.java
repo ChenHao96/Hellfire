@@ -50,12 +50,13 @@ public class SpringControllerAop {
 
     @Before("controllerPointcut() && @annotation(systemAdminOption)")
     public void beforeMethod(JoinPoint joinPoint, SystemAdminOption systemAdminOption) {
-
+        //TODO:
     }
 
     @AfterReturning(value = "controllerPointcut()", returning = "result")
     public void afterReturningMethod(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().toShortString();
+        //TODO:
         log.info("controllerAop afterReturningMethod:{}, return:{}", methodName, result);
     }
 }
