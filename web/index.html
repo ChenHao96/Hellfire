@@ -63,7 +63,24 @@
 <script charset="UTF-8" src="res/framework/layui/layui.js"></script>
 <script id="topMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, item){}}<li class="layui-nav-item"><a href="javascript:;" taggle="{{item.menuIndex}}">{{item.menuName}}</a></li>{{#});}}</script>
 <script id="leftMenuTpl" type="text/html">{{#layui.each(d.menuTrees, function(index, first){}}<ul class="layui-nav layui-nav-tree menuUlTab" id="{{first.menuIndex}}">{{#layui.each(first.child, function(index, second){}}<li class="layui-nav-item"><a href="javascript:;" class="layui-menu-button" id="{{second.menuIndex}}">{{second.menuName}}</a>{{#if(second.child != null && second.child.length > 0){}}<dl class="layui-nav-child">{{#layui.each(second.child, function(index, last){}}<dd><a href="javascript:;" class="layui-menu-button" id="{{last.menuIndex}}">{{last.menuName}}</a></dd>{{#});}}</dl>{{#}}}</li>{{#});}}</ul>{{#});}}</script>
-<script>const index2PageUrl = "res/js/index2Page.json";const loginUser = {nickName:"--匿名--", menuTrees:[{menuName:"业务系统", menuIndex:"business", child:[{menuName:"订单管理", menuIndex:"order_manager"}]}, {menuName:"控制台", menuIndex:"console", child:[{menuName:"数据库", menuIndex:"databases"}]}]};</script>
+<script>
+const index2PageUrl = "res/js/index2Page.json";
+const loginUser = {
+    nickName:"--匿名--",
+    menuTrees:[{
+        menuName:"业务系统",
+        menuIndex:"business",
+        child:[{
+            menuName:"订单管理",
+            menuIndex:"order_manager"
+        }]}, {
+        menuName:"控制台",
+        menuIndex:"console",
+        child:[{
+            menuName:"数据库",
+            menuIndex:"databases"
+        }]}
+]};</script>
 <script src="res/js/index.js"></script>
 </body>
 </html>
