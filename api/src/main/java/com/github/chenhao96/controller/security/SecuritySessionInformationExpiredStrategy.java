@@ -22,7 +22,7 @@ public class SecuritySessionInformationExpiredStrategy implements SessionInforma
         errorHandlerResponse.setRequest(event.getRequest());
         errorHandlerResponse.setResponse(event.getResponse());
         errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
-        errorHandlerResponse.setMessage("该账号已在其他设备登录，如有异常及时联系管理员!");
+        errorHandlerResponse.setMsg("该账号已在其他设备登录，如有异常及时联系管理员!");
         errorHandlerResponse.doResponse();
         SecurityContextHolder.clearContext();
     }

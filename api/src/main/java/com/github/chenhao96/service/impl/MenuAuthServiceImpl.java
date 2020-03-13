@@ -9,15 +9,12 @@ import com.github.chenhao96.service.MenuAuthService;
 import com.github.chenhao96.service.RoleAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.Future;
 
 @Slf4j
 @Service
@@ -48,10 +45,9 @@ public class MenuAuthServiceImpl implements MenuAuthService {
         return atMenuAdaptor.findMenusByIds(menuId);
     }
 
-    @Async
     @Override
-    public Future<List<AuthMenusTree>> queryMenuTreeByUser(Integer userId) {
-        return new AsyncResult<>(findMenuTreeByUserId(findMenusByUserId(userId)));
+    public List<AuthMenusTree> queryMenuTreeByUser(Integer userId) {
+        return findMenuTreeByUserId(findMenusByUserId(userId));
     }
 
     private List<AuthMenusTree> findMenuTreeByUserId(List<ATMenus> menus) {

@@ -77,7 +77,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setObjectMapper(objectMapper);
-        errorHandlerResponse.setMessage("验证码不正确，请重新登录！");
+        errorHandlerResponse.setMsg("验证码不正确，请重新登录！");
         errorHandlerResponse.setCode(HttpStatus.UNAUTHORIZED.value());
         errorHandlerResponse.doResponse();
         SecurityContextHolder.clearContext();
@@ -96,7 +96,7 @@ public class VerificationDeviceInterceptor implements HandlerInterceptor {
         errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setObjectMapper(objectMapper);
         errorHandlerResponse.setCode(HttpStatus.CONTINUE.value());
-        errorHandlerResponse.setMessage("检查到您的使用存在风险,请填写验证码验证。");
+        errorHandlerResponse.setMsg("检查到您的使用存在风险,请填写验证码验证。");
         errorHandlerResponse.doResponse();
     }
 

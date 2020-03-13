@@ -1,5 +1,6 @@
 package com.github.chenhao96.utils;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.chenhao96.entity.vo.BaseResult;
 import lombok.Data;
@@ -12,25 +13,21 @@ import java.io.IOException;
 
 @Data
 @Accessors(chain = true)
-public class ErrorHandlerResponse {
+public class ErrorHandlerResponse extends BaseResult<Object> {
 
+    @JsonIgnore
     private HttpServletRequest request;
 
+    @JsonIgnore
     private HttpServletResponse response;
 
-    private int code;
-
-    private String message;
-
+    @JsonIgnore
     private ObjectMapper objectMapper;
 
-    private Object data;
-
     public void doResponse() throws IOException {
-        BaseResult<Object> result = new BaseResult<>(code, message, data);
         response.setCharacterEncoding(CommonsUtil.DEFAULT_ENCODING);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(objectMapper.writeValueAsString(result));
+        response.getWriter().write(objectMapper.writeValueAsString(this));
         response.getWriter().flush();
     }
 }

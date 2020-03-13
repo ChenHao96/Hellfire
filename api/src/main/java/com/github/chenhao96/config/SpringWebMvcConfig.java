@@ -46,6 +46,7 @@ public class SpringWebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(requestHandlerInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/webjars/**","/swagger-resources/**","/swagger-ui.html");
+
         registry.addInterceptor(verificationDeviceInterceptor()).addPathPatterns("/**")
                 .excludePathPatterns("/webjars/**","/swagger-resources/**","/swagger-ui.html");
     }

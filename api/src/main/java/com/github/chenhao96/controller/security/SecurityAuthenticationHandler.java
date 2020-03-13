@@ -46,7 +46,7 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
         //3.封禁IP
         log.warn("session:{}, AuthenticationException:{}", request.getSession().getId(), exception.getClass());
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
-        errorHandlerResponse.setMessage(message);
+        errorHandlerResponse.setMsg(message);
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);
         errorHandlerResponse.setObjectMapper(objectMapper);
@@ -57,11 +57,10 @@ public class SecurityAuthenticationHandler implements AuthenticationFailureHandl
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication auth) throws IOException {
-
         ErrorHandlerResponse errorHandlerResponse = new ErrorHandlerResponse();
+        errorHandlerResponse.setMsg("登录成功。");
         errorHandlerResponse.setRequest(request);
         errorHandlerResponse.setResponse(response);
-        errorHandlerResponse.setMessage("登录成功!");
         errorHandlerResponse.setObjectMapper(objectMapper);
         errorHandlerResponse.setCode(HttpStatus.OK.value());
         errorHandlerResponse.doResponse();

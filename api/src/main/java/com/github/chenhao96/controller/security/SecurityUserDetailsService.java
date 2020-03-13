@@ -1,6 +1,5 @@
 package com.github.chenhao96.controller.security;
 
-import com.github.chenhao96.entity.enums.UserStatusEnum;
 import com.github.chenhao96.entity.po.ATUsers;
 import com.github.chenhao96.entity.vo.*;
 import com.github.chenhao96.service.ATUserService;
@@ -17,8 +16,6 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 @Slf4j
 @Service
@@ -38,28 +35,17 @@ public class SecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         long startTime = System.currentTimeMillis();
         ATUsers atUsers = atUserService.queryByUsername(username);
         if (atUsers == null) {
             throw new UsernameNotFoundException("用户账号不存在!");
         }
-
-        Future<List<AuthMenusTree>> treeFuture = menuAuthService.queryMenuTreeByUser(atUsers.getId());
-        Future<List<AuthUrlControls>> listFuture = controlAuthService.queryAuthoritiesByUser(atUsers.getId());
         AuthUserDetail result = new AuthUserDetail();
         BeanUtils.copyProperties(atUsers, result);
         result.setPassword(passwordEncoder.encode(result.getPassword()));
-
-        try {
-            //等待其他线程完成
-            result.setAuthorities(listFuture.get());
-            result.setMenuTrees(treeFuture.get());
-        } catch (InterruptedException | ExecutionException e) {
-            log.warn("exec future fail {}", e.getMessage());
-            result.setStatus(UserStatusEnum.DISABLE);
-        }
-
+        //TODO：密码错误也会导致查询
+        result.setAuthorities(controlAuthService.queryAuthoritiesByUser(atUsers.getId()));
+        result.setMenuTrees(menuAuthService.queryMenuTreeByUser(atUsers.getId()));
         userAuthInfo(result);
         log.info("loadUserByUsername use time:{} Millis.", System.currentTimeMillis() - startTime);
         return result;

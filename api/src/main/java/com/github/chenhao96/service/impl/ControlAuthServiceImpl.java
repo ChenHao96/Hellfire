@@ -9,8 +9,6 @@ import com.github.chenhao96.service.ControlAuthService;
 import com.github.chenhao96.service.RoleAuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Future;
 
 @Slf4j
 @Service
@@ -51,10 +48,9 @@ public class ControlAuthServiceImpl implements ControlAuthService {
         return atControlAdaptor.findControlsByIds(controlId);
     }
 
-    @Async
     @Override
-    public Future<List<AuthUrlControls>> queryAuthoritiesByUser(Integer userId) {
-        return new AsyncResult<>(createAuthorities(findControlsByUserId(userId)));
+    public List<AuthUrlControls> queryAuthoritiesByUser(Integer userId) {
+        return createAuthorities(findControlsByUserId(userId));
     }
 
     private List<AuthUrlControls> createAuthorities(List<ATControls> controls) {

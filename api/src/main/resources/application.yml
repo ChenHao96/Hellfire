@@ -28,9 +28,9 @@ spring:
   datasource:
     platform: mysql
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hellfire?useUnicode=true&characterEncoding=utf-8
-    username: test
-    password: 12345678
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
 
 mybatis-plus:
   typeEnumsPackage: com.github.chenhao96.entity.enums

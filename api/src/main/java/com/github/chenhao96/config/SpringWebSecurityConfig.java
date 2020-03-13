@@ -2,6 +2,7 @@ package com.github.chenhao96.config;
 
 import com.github.chenhao96.controller.security.SecurityAccessDeniedHandler;
 import com.github.chenhao96.controller.security.SecurityAuthenticationHandler;
+import com.github.chenhao96.controller.security.SecurityLogoutSuccessHandler;
 import com.github.chenhao96.controller.security.SecuritySessionInformationExpiredStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +30,9 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private SecurityAuthenticationHandler securityAuthenticationHandler;
+
+    @Resource
+    private SecurityLogoutSuccessHandler securityLogoutSuccessHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -68,6 +72,7 @@ public class SpringWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(securityAuthenticationHandler)
                 .and()
                 .logout()
+                .logoutSuccessHandler(securityLogoutSuccessHandler)
                 .deleteCookies("JSESSIONID", "SESSIONID", "SESSION")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true);
