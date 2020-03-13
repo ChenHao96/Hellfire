@@ -10,9 +10,9 @@ function resizeXFrame() {
     $(".layui-layout-body .layui-body .x-iframe").css("height", (bodyHeight - tabFrameHeight) + "px");
     $(".layui-layout-body .layui-body").css("height", bodyHeight + 3 + "px");
 }
-layui.use(['element','laytpl','jquery'], function () {
+
+layui.use(['element', 'laytpl', 'layer'], function () {
     const element = layui.element;
-    const $ = layui.jquery;
     element.on('nav(navTab)', function (data) {
         var selectedTab = data[0].attributes["taggle"];
         $(".menuUlTab").hide();
@@ -29,8 +29,12 @@ layui.use(['element','laytpl','jquery'], function () {
         $('#tab_show').show();
         return false;
     });
-    layui.laytpl($("#topMenuTpl").html()).render(loginUser, function(html){$(".tplTopMenu").html(html);});
-    layui.laytpl($("#leftMenuTpl").html()).render(loginUser, function(html){$(".tplLeftMenu").html(html);});
+    layui.laytpl($("#topMenuTpl").html()).render(loginUser, function (html) {
+        $(".tplTopMenu").html(html);
+    });
+    layui.laytpl($("#leftMenuTpl").html()).render(loginUser, function (html) {
+        $(".tplLeftMenu").html(html);
+    });
     element.render('nav');
     const firstMenuButton = $(".layui-header .layui-layout-left li:first");
     if (firstMenuButton.length > 0) {
@@ -48,13 +52,16 @@ layui.use(['element','laytpl','jquery'], function () {
             }
         });
     });
-    $(".logout-button").click(function(){
-        $.getJSON("",{},function(data){
-            if(data.code === 200){
-                window.location.href="login.html";
+    $(".logout-button").click(function () {
+        doGetRequest("api/logout", {}, function (response) {
+            if (response.code === 200) {
+                window.location.href = "login.html";
+            } else {
+                layui.layer.msg(response.msg);
             }
         });
     });
+
     function layuiTabAdd(id, title, url) {
         const opened = $(".layui-tab-title li[lay-id=home]").nextAll();
         if (opened != null && opened.length > 0) {
@@ -76,7 +83,10 @@ layui.use(['element','laytpl','jquery'], function () {
 });
 $(function () {
     $(".loginUserNickName").text(loginUser.nickName);
-    $('#tab_right,.layui-layout-body').on('click', function(){$('#tab_right').hide();$('#tab_show').hide();});
+    $('#tab_right,.layui-layout-body').on('click', function () {
+        $('#tab_right').hide();
+        $('#tab_show').hide();
+    });
     $('#tab_right dd').click(function () {
         const data_type = $(this).attr("data-type");
         $(".tabFrame li.home").find("i.layui-tab-close").remove();

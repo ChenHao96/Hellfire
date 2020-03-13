@@ -5,10 +5,11 @@
     <title>登录验证</title>
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi"/>
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <link rel="stylesheet" href="res/framework/layui/css/layui.css" media="all"/>
     <script src="res/framework/jquery/jquery-3.4.1.min.js"></script>
+    <script src="res/js/commons.js"></script>
     <link rel="stylesheet" href="res/css/login.css"/>
 </head>
 <body class="login-bg">
@@ -29,17 +30,15 @@
     <form class="layui-form" lay-filter="form_">
         <input type="hidden" name="is_v" value="true"/>
         <input name="v_code" placeholder="验证码" maxlength="{{d.codeLength}}" lay-verify="required" class="layui-input"/>
-        <hr class="hr15"><a class="vButton" href="javascript:;" clickUrl="?v_type=email" title="验证码{{d.codeLifeTimeStr}}有效">邮箱验证码</a>
-        &nbsp;<a class="vButton" href="javascript:;" clickUrl="?v_type=mobile" title="验证码{{d.codeLifeTimeStr}}有效">手机验证码</a>
-        <hr class="hr15"><input type="submit" lay-submit style="width:100%;" value="提交"/>
+        <hr class="hr15">
+        <a class="vButton" href="javascript:;" clickUrl="?v_type=email" title="验证码{{d.codeLifeTimeStr}}有效">邮箱验证码</a>
+        &nbsp;<a class="vButton" href="javascript:;" clickUrl="?v_type=mobile"
+                 title="验证码{{d.codeLifeTimeStr}}有效">手机验证码</a>
+        <hr class="hr15">
+        <input type="submit" lay-submit lay-filter="login" style="width:100%;" value="提交"/>
     </form>
 </script>
-<script>
-const formData = {
-    codeLength: 6,
-    codeLifeTimeStr: "5分钟"
-};
-</script>
+<script>const formData = {codeLength: 6, codeLifeTimeStr: "5分钟"};</script>
 <script src="res/js/verification.js"></script>
 </body>
 </html>

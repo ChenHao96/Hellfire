@@ -1,19 +1,23 @@
-$(function () {
-    if (hasError) {
-        $(".login .formMessageBox").show();
-        $(".login .formMessageBox div").text(errorMessage);
-    }
-    layui.use('form', function () {
-        const form = layui.form;
-        form.on('submit(login)', function (formData) {
-            const hash = $.md5($("form input[type=password]").val() + "+");
-            $("form input[name=password]").val(hash);
-            return true;
+layui.use(['form'], function () {
+    layui.form.on('submit(login)', function () {
+        const hash = $.md5($("form input[type=password]").val() + "+");
+        $("form input[name=password]").val(hash);
+        doRequest("api/login", $(".login .layui-form").serialize(), function (response) {
+            if (response.code === 200) {
+                window.location.href = "index.html";
+            } else {
+                errorResponse(response.msg);
+            }
         });
+        return false;
     });
-    setTimeout(function () {
-        $(".login .formMessageBox").fadeOut('fast', function () {
-            $(this).remove();
-        });
-    }, 2500);
+    function errorResponse(message) {
+        $(".login .formMessageBox").show();
+        $(".login .formMessageBox div").text(message);
+        setTimeout(function () {
+            $(".login .formMessageBox").fadeOut('fast', function () {
+                $(this).hide();
+            });
+        }, 2500);
+    }
 });

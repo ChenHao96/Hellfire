@@ -4,5 +4,6 @@
   "account_query": "https://taobao.com",
   "account_update": "http://qq.com",
   "baseAccountInfo":"https://v.qq.com",
-  "securitySetting":"https://www.aliyun.com"
+  "securitySetting":"https://www.aliyun.com",
+  "swagger":"http://localhost/api/swagger-ui.html"
 }
